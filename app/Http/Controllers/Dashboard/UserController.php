@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
@@ -17,8 +18,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::whereNotIn('id', [1])->get();
-        return view('dashboard.user.all', compact('user'));
+        if (Helper::AccessSubmenu()) {
+            $user = User::whereNotIn('id', [1])->get();
+            return view('dashboard.user.all', compact('user'));
+        } else {
+            return view('dashboard.home.403');
+        }
+
     }
 
     /**
@@ -28,8 +34,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $role = Role::whereNotIn('id', [1])->get();
-        return view('dashboard.user.create', compact('role'));
+        if (Helper::AccessSubmenu()->create == 1) {
+            $role = Role::whereNotIn('id', [1])->get();
+            return view('dashboard.user.create', compact('role'));
+        } else {
+            return view('dashboard.home.403');
+        }
     }
 
     /**
@@ -71,10 +81,15 @@ class UserController extends Controller
      */
     public function edit($index)
     {
+        if (Helper::AccessSubmenu()->edit == 1) {
+            $user = User::where('id', $index)->first();
+            $role = Role::whereNotIn('id', [1])->get();
+            return view('dashboard.user.edit', compact('role', 'user'));
+        } else {
+            return view('dashboard.home.403');
+        }
         // return $index;
-        $user = User::where('id', $index)->first();
-        $role = Role::whereNotIn('id', [1])->get();
-        return view('dashboard.user.edit', compact('role', 'user'));
+
     }
 
     /**

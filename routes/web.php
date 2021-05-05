@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/access/block', 'BlockController@index');
 
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'access']], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/homes/index', 'Dashboard\HomeController@index');
     Route::delete('/homes/index/{id}', 'Dashboard\HomeController@delete');
     Route::get('/settings/profile/', 'Dashboard\SettingController@profile');

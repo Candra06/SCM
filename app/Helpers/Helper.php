@@ -25,9 +25,7 @@ class Helper
         $aksesmenu_id = $aksesmenu['id'];
         $aksesmenu = AccessMenu::where(['role_id' => $role_id, 'menu_id' => $aksesmenu_id])->count();
 
-        if($aksesmenu < 1) {
-            return redirect('/access/block');
-        }
+        return $aksesmenu;
     }
 
     public static function AccessSubmenu()
@@ -39,11 +37,14 @@ class Helper
         // submenu
         $akses_submenu = Submenu::where('url', $main_submenu)->first();
         $akses_submenu_id = $akses_submenu['id'];
-        $akses_submenu = AccessSubmenu::where(['role_id' => $role_id, 'submenu_id' => $akses_submenu_id])->count();
 
-        if($akses_submenu < 1) {
-            return redirect('/access/block');
+        $akses_submenu = AccessSubmenu::where(['role_id' => $role_id, 'submenu_id' => $akses_submenu_id])->first();
+
+        if($akses_submenu == NULL) {
+            return 0;
         }
+
+        return $akses_submenu;
     }
 
     public static function permission()

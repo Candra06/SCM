@@ -62,3 +62,13 @@
 </div>
 
 @endsection
+
+@push('styles')
+    <style>
+
+        .dropify-wrapper .dropify-message p {
+            font-size: 14px !important;
+        }
+
+    </style>
+@endpush
