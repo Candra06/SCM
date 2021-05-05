@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Access;
+use App\Menu;
+use App\Submenu;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
