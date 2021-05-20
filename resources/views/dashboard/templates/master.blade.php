@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
   <title>Dashboard | {{ucfirst(Request::segment(2))}}</title>
-  
+
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/styles.css')}}">
 
   <script src="{{asset('assets/js/all.min.js')}}"></script>
@@ -52,7 +52,7 @@
           <div class="container-fluid">
               <div class="row">
                   <div class="col-md-6 small">
-                    Copyright &#xA9; <a href="http://hendrawan.tech" class="text-decoration-none text-primary">HendrawanTech</a> 2020
+                    Copyright &#xA9; <a href="" class="text-decoration-none text-primary">SCM-DPB</a> 2021
                   </div>
                   <div class="col-md-6 text-md-right small">
                       <a href="#!">Privacy Policy</a>
@@ -111,7 +111,7 @@
       </div>
     </div>
   </div>
-  
+
   <script src="{{asset('assets/js/jquery-3.5.1.min.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('assets/js/scripts.js')}}"></script>
@@ -122,7 +122,7 @@
       });
       document.formdelete.action = url;
     }
-    
+
     function modal_konfir_custom(url, pesan) {
         $('#modal_konfirmasi').modal('show', {
             backdrop: 'static'

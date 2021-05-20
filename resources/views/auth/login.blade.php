@@ -6,11 +6,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="Hendrawan">
-  <meta name="keywords" content="Hendrawan">
-  <meta name="author" content="Hendrawan">
+  <meta name="description" content="SCM">
+  <meta name="keywords" content="SCM">
+  <meta name="author" content="SCM">
 
-  <title>WanApp | Login</title>
+  <title>SCM-DPB | Login</title>
 
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/styles.css')}}">
 
@@ -69,7 +69,7 @@
       <footer class="footer mt-auto footer-dark">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6 small">Copyright &#xA9; <a href="http://hendrawan.tech">Hendrawan</a> 2020</div>
+            <div class="col-md-6 small">Copyright &#xA9; <a href="">SCM-DPB</a> 2021</div>
             <div class="col-md-6 text-md-right small">
               <a href="#!">Privacy Policy</a>
               &#xB7;
