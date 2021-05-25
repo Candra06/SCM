@@ -34,4 +34,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::resource('/users/index', 'Dashboard\UserController');
     Route::resource('/posts/post', 'Dashboard\PostController');
     Route::resource('/posts/category', 'Dashboard\CategoryController');
+    Route::resource('/kavling/index', 'Dashboard\KavlingController');
+    Route::resource('/tiperumah/data', 'Dashboard\TipeRumahController');
+    Route::resource('/supplier/data', 'Dashboard\SupplierController');
 });
