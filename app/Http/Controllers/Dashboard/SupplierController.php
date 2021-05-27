@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Supplier;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
@@ -15,8 +17,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $data = Supplier::all();
-        return view('dashboard.supplier.index', compact('data'));
+        $datasupplier = User::whereNotIn('id', [1])->where("role_id", 4)->get();
+        return view("dashboard.supplier.index", compact("datasupplier"));
     }
 
     /**
@@ -37,7 +39,29 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "id_akun" => "required",
+            "nama_supplier" => "required",
+            "telepon" => "required",
+            "alamat_supplier" => "required",
+            "status" => "required"
+        ]);
+
+        $input["id_akun"] = $request["id_akun"];
+        $input["nama"] = $request["nama_supplier"];
+        $input["telepon"] = $request["telepon"];
+        $input["alamat"] = $request["alamat_supplier"];
+        $input["status"] = $request["status"];
+
+        try {
+//            Supplier::create($input);
+            DB::table("supplier")->insert($input);
+            return redirect('/dashboard/supplier/data')->with('status', 'Berhasil menambah data');
+        } catch (\Throwable $th) {
+//            DB::table("supplier")->insert($input);
+            return redirect('/dashboard/supplier/data')->with('status', 'Gagal menambah data');
+        }
+
     }
 
     /**
@@ -59,7 +83,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $datasupplier = $id;
+        return view('dashboard.supplier.edit', compact("datasupplier"));
     }
 
     /**
@@ -71,7 +96,26 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "id_akun" => "required",
+            "nama_supplier" => "required",
+            "telepon" => "required",
+            "alamat_supplier" => "required",
+            "status" => "required"
+        ]);
+
+        $input["id_akun"] = $request["id_akun"];
+        $input["nama"] = $request["nama_supplier"];
+        $input["telepon"] = $request["telepon"];
+        $input["alamat"] = $request["alamat_supplier"];
+        $input["status"] = $request["status"];
+
+        try {
+            Supplier::create($input);
+            return redirect('/dashboard/supplier/data')->with('status', 'Berhasil menambah data');
+        } catch (\Throwable $th) {
+            return redirect('/dashboard/supplier/data')->with('status', 'Gagal menambah data');
+        }
     }
 
     /**

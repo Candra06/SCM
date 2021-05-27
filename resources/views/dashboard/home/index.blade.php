@@ -30,5 +30,55 @@
       </div>
   </div>
 </div>
+<div>
+    <div class="card mb-4">
+        <div class="card-header">Extended DataTables</div>
+        <div class="card-body">
+            <div class="datatable">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%"
+                       cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php
+                    $i = 0;
+                    @endphp
+
+                    @foreach($datapembelian as $item)
+                        <tr>
+                            <td>Bradley Greer</td>
+                            <td>Software Engineer</td>
+                            <td>London</td>
+                            <td>41</td>
+                            <td>2012/10/13</td>
+                            <td>$132,000</td>
+                            <td>
+                                <div class="badge badge-warning badge-pill">Pending</div>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-datatable btn-icon btn-transparent-dark mr-2"><i
+                                        data-feather="edit"></i></a>
+                                <a href="#" class="btn btn-datatable btn-icon btn-transparent-dark"><i
+                                        data-feather="trash-2"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection

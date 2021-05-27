@@ -13,9 +13,10 @@ class HomeController extends Controller
     public function index()
     {
         $user = User::whereNotIn('id', [1])->where('role_id', 3)->count();
+        $datapembelian = DB::table("pembelian")->paginate(10);
 
-        return view('dashboard.home.index', compact('user'));
+        return view('dashboard.home.index', compact('user', 'datapembelian'));
     }
 
-    
+
 }

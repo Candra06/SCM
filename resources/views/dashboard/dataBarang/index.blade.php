@@ -22,19 +22,23 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>Nama Barang</th>
+                    <th>stock</th>
+                    <th>satuan</th>
+                    <th>Harga</th>
+                    <th>Status</th>
                     <th>Option</th>
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($datasupplier as $item)
+                    @foreach ($databarang as $item)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->email}}</td>
-                            <td>{{$item->role->role}}</td>
+                            <td>{{$item->nama_barang}}</td>
+                            <td>{{$item->stok}}</td>
+                            <td>{{$item->satuan}}</td>
+                            <td>{{$item->harga}}</td>
+                            <td>{!!$item->status == 'Ready' ? '<span class="badge badge-success">Ready</span>' : '<span class="badge badge-danger">Sold Out</span>'!!}</td>
                             <td class="justify-content-center">
                               @if (Helper::permission()->edit == 1)
                                   <a href="{{Helper::permission()->url . '/' . $item->id . '/edit'}}" class="btn btn-sm btn-primary btn-circle mr-2">

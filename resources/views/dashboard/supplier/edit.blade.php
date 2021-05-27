@@ -20,28 +20,43 @@
         </button>
     </div>
 @endif
-<form action="/dashboard/kavling/index/{{$kavling->id}}" enctype="multipart/form-data" method="POST">
-    @method('put')
+<form action="/dashboard/supplier/data" enctype="multipart/form-data" method="POST">
     @csrf
     <div class="row">
         <div class="col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Edit Kavling</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Form Detail Data Supplier</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12 mb-3">
-                            <input type="text" name="nama_kavling" value="{{$kavling->nama_kavling}}" class="form-control @error('nama_kavling') is-invalid @enderror" placeholder="Nama Kavling">
-                            @error('nama_kavling')
+                            <input type="text" name="id_akun" value="{{$datasupplier}}" class="form-control @error('id_akun') is-invalid @enderror" placeholder="Id Akun">
+                            @error('id_akun')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                             @enderror
                         </div>
                         <div class="col-lg-12 mb-3">
-                            <input type="text" name="no_kavling" value="{{$kavling->no_kavling}}" class="form-control @error('no_kavling') is-invalid @enderror" placeholder="Nomor Kavling">
-                            @error('no_kavling')
+                            <input type="text" name="nama_supplier" class="form-control @error('nama_supplier') is-invalid @enderror" placeholder="Nama Supplier">
+                            @error('nama_supplier')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <input type="text" name="telepon" class="form-control @error('telepon') is-invalid @enderror" placeholder="Telepon">
+                            @error('telepon')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <input type="text" name="alamat_supplier" class="form-control @error('alamat_supplier') is-invalid @enderror" placeholder="Alamat Supplier">
+                            @error('alamat_supplier')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
@@ -51,8 +66,8 @@
                             <div class="form-group">
                                 <select class="form-control @error('status') is-invalid @enderror" name="status">
                                     <option value="">Select Status</option>
-                                    <option value="Ready" {{$kavling->status == 'Ready' ? 'selected' : ''}}>Ready</option>
-                                    <option value="Sold Out" {{$kavling->status == 'Sold Out' ? 'selected' : ''}}>Sold Out</option>
+                                    <option value="Aktif" {{old('status') == 'Aktif' ? 'selected' : ''}}>Aktif</option>
+                                    <option value="Banned" {{old('status') == 'Banned' ? 'selected' : ''}}>Banned</option>
                                 </select>
                                 @error('url')
                                 <div class="invalid-feedback">

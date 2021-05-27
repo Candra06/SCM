@@ -37,4 +37,5 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::resource('/kavling/index', 'Dashboard\KavlingController');
     Route::resource('/tiperumah/data', 'Dashboard\TipeRumahController');
     Route::resource('/supplier/data', 'Dashboard\SupplierController');
+    Route::resource('/databarang/data', 'Dashboard\DataBarangController');
 });

@@ -20,18 +20,19 @@
         </button>
     </div>
 @endif
-<form action="/dashboard/supplier/data" enctype="multipart/form-data" method="POST">
+<form action="/dashboard/kavling/index/{{$kavling->id}}" enctype="multipart/form-data" method="POST">
+    @method('put')
     @csrf
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Data Supplier</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Form Edit Kavling</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12 mb-3">
-                            <input type="text" name="nama_kavling" value="{{old('nama_kavling')}}" class="form-control @error('nama_kavling') is-invalid @enderror" placeholder="Nama Kavling">
+                            <input type="text" name="nama_kavling" value="{{$kavling->nama_kavling}}" class="form-control @error('nama_kavling') is-invalid @enderror" placeholder="Nama Kavling">
                             @error('nama_kavling')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -39,7 +40,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-12 mb-3">
-                            <input type="text" name="no_kavling" value="{{old('no_kavling')}}" class="form-control @error('no_kavling') is-invalid @enderror" placeholder="Nomor Kavling">
+                            <input type="text" name="no_kavling" value="{{$kavling->no_kavling}}" class="form-control @error('no_kavling') is-invalid @enderror" placeholder="Nomor Kavling">
                             @error('no_kavling')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -50,8 +51,8 @@
                             <div class="form-group">
                                 <select class="form-control @error('status') is-invalid @enderror" name="status">
                                     <option value="">Select Status</option>
-                                    <option value="Ready" {{old('status') == 'Ready' ? 'selected' : ''}}>Ready</option>
-                                    <option value="Sold Out" {{old('status') == 'Sold Out' ? 'selected' : ''}}>Sold Out</option>
+                                    <option value="Ready" {{$kavling->status == 'Ready' ? 'selected' : ''}}>Ready</option>
+                                    <option value="Sold Out" {{$kavling->status == 'Sold Out' ? 'selected' : ''}}>Sold Out</option>
                                 </select>
                                 @error('url')
                                 <div class="invalid-feedback">
