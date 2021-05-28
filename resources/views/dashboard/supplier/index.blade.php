@@ -36,19 +36,24 @@
                             <td>{{$item->email}}</td>
                             <td>{{$item->role->role}}</td>
                             <td class="justify-content-center">
-                              @if (Helper::permission()->edit == 1)
-                                  <a href="{{Helper::permission()->url . '/' . $item->id . '/edit'}}" class="btn btn-sm btn-primary btn-circle mr-2">
-                                      <i data-feather="edit-2"></i>
-                                  </a>
-                              @endif
-                              @if (Helper::permission()->delete)
-                                  @php
-                                    $linkdelete = Helper::permission()->url . '/' . $item->id
-                                  @endphp
-                                  <a onclick='modal_konfir("{{ $linkdelete }}")' class="btn btn-sm btn-danger btn-circle mr-2" href="#">
-                                    <i data-feather="trash"></i>
-                                  </a>
-                              @endif
+                                @if (Helper::permission()->edit == 1)
+                                    <a href="{{Helper::permission()->url . '/create'}}" class="btn btn-sm btn-primary btn-circle mr-2">
+                                        <i data-feather="plus"></i>
+                                    </a>
+                                @endif
+                                @if (Helper::permission()->edit == 1)
+                                      <a href="{{Helper::permission()->url . '/' . $item->id . '/edit'}}" class="btn btn-sm btn-primary btn-circle mr-2">
+                                          <i data-feather="edit-2"></i>
+                                      </a>
+                                  @endif
+                                @if (Helper::permission()->delete)
+                                      @php
+                                        $linkdelete = Helper::permission()->url . '/' . $item->id
+                                      @endphp
+                                      <a onclick='modal_konfir("{{ $linkdelete }}")' class="btn btn-sm btn-danger btn-circle mr-2" href="#">
+                                        <i data-feather="trash"></i>
+                                      </a>
+                                  @endif
                             </td>
                         </tr>
                     @endforeach

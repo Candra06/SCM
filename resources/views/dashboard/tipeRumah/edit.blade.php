@@ -87,7 +87,8 @@
                                 {{$message}}
                             </div>
                             @enderror
-                        </div> <div class="col-lg-4 mb-3">
+                        </div>
+                        <div class="col-lg-4 mb-3">
                             <input type="number" name="jumlah_lantai" value="{{$data->jumlah_lantai}}" class="form-control @error('jumlah_lantai') is-invalid @enderror" placeholder="Jumlah Lantai">
                             @error('jumlah_lantai')
                             <div class="invalid-feedback">
@@ -123,6 +124,15 @@
                                 <input type="file" id="input-file-now" name="desain_rumah" data-default-file="{{asset($data->desain_rumah)}}" class="dropify" />
                                 @error('desain_rumah')
                                     <span class="text-danger mt-2">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <div class="form-group">
+                                <label for="">Gambar Barang</label>
+                                <input type="file" id="input-file-now" name="gambar_barang"  class="dropify" />
+                                @error('gambar_barang')
+                                <span class="text-danger mt-2">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>

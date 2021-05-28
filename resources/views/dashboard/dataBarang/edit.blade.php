@@ -20,44 +20,78 @@
         </button>
     </div>
 @endif
-<form action="/dashboard/kavling/index/{{$kavling->id}}" enctype="multipart/form-data" method="POST">
+<form action="/dashboard/databarang/index/{{$databarang->id}}" enctype="multipart/form-data" method="POST">
     @method('put')
     @csrf
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Edit Kavling</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Form Edit Data Barang</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-12 mb-3">
-                            <input type="text" name="nama_kavling" value="{{$kavling->nama_kavling}}" class="form-control @error('nama_kavling') is-invalid @enderror" placeholder="Nama Kavling">
-                            @error('nama_kavling')
+                        <div class="col-lg-4 mb-3">
+                            <input type="text" name="nama_barang" value="{{$databarang->nama_barang}}" class="form-control @error('nama_barang') is-invalid @enderror" placeholder="Nama Barang">
+                            @error('nama_barang')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                             @enderror
                         </div>
-                        <div class="col-lg-12 mb-3">
-                            <input type="text" name="no_kavling" value="{{$kavling->no_kavling}}" class="form-control @error('no_kavling') is-invalid @enderror" placeholder="Nomor Kavling">
-                            @error('no_kavling')
+                        <div class="col-lg-4 mb-3">
+                            <input type="text" name="satuan_barang" value="{{$databarang->satuan}}" class="form-control @error('satuan_barang') is-invalid @enderror" placeholder="Satuan Barang">
+                            @error('satuan_barang')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                             @enderror
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-4 mb-3">
+                            <input type="number" name="stok" value="{{$databarang->stok}}" class="form-control @error('stok') is-invalid @enderror" placeholder="Stock">
+                            @error('stok')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <input type="number" name="harga_jual" value="{{$databarang->harga}}" class="form-control @error('harga_jual') is-invalid @enderror" placeholder="Harga Jual">
+                            @error('harga_jual')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <select class="form-control @error('status') is-invalid @enderror" name="status">
                                     <option value="">Select Status</option>
-                                    <option value="Ready" {{$kavling->status == 'Ready' ? 'selected' : ''}}>Ready</option>
-                                    <option value="Sold Out" {{$kavling->status == 'Sold Out' ? 'selected' : ''}}>Sold Out</option>
+                                    <option value="Ready" {{$databarang->status == 'Ready' ? 'selected' : ''}}>Ready</option>
+                                    <option value="Sold Out" {{$databarang->status == 'Sold Out' ? 'selected' : ''}}>Sold Out</option>
                                 </select>
                                 @error('url')
                                 <div class="invalid-feedback">
                                     {{$message}}
                                 </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <div class="form-group">
+                                <label for="">Deskripsi Barang</label>
+                                <textarea type="text" name="deskripsi_barang" class="form-control @error('deskripsi_barang') is-invalid @enderror" placeholder="Deskripsi Barang">{{__($databarang->deskripsi)}}</textarea>
+                                @error('deskripsi_barang')
+                                <span class="text-danger mt-2">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <div class="form-group">
+                                <label for="">Gambar Barang</label>
+                                <input type="file" id="input-file-now" name="gambar_barang" data-default-file="{{asset($databarang->gambar)}}" class="dropify" />
+                                @error('gambar_barang')
+                                <span class="text-danger mt-2">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
@@ -73,3 +107,9 @@
 </form>
 
 @endsection
+@push('scripts')
+    <script src="{{asset('assets/js/tinymce.min.js')}}"></script>
+    <script src="{{asset('assets/js/tinymce.js')}}"></script>
+    <script src="{{ asset('assets/js/dropify.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dropify.js') }}"></script>
+@endpush

@@ -19,7 +19,9 @@ class DataBarangController extends Controller
      */
     public function index()
     {
-        $databarang = DB::table("barang")->paginate(10);
+        $user = Auth::user()->id;
+        $supplier = DB::table("supplier")->where("id_akun", $user)->first();
+        $databarang = DB::table("barang")->where("id_supplier", $supplier->id)->paginate(10);
         return view("dashboard.dataBarang.index", compact("databarang"));
     }
 
@@ -42,6 +44,7 @@ class DataBarangController extends Controller
     public function store(Request $request)
     {
         $user_id = Auth::user()->id;
+        $supplier_id = DB::table("supplier")->where("id_akun", $user_id)->first();
 
         $request->validate([
             "nama_barang" => "required",
@@ -55,20 +58,21 @@ class DataBarangController extends Controller
 
         $fileType = $request->file('gambar_barang')->extension();
         $name = Str::random(8) . '.' . $fileType;
-        $input['gambar_barang'] = Storage::putFileAs('barang', $request->file('gambar_barang'), $name);
-        $input["id_supplier"] = $user_id;
+//        $input['gambar'] = Storage::putFileAs('barang', $request->file('gambar_barang'), $name);
+        $input["id_supplier"] = $supplier_id->id;
         $input["nama_barang"] = $request["nama_barang"];
         $input["deskripsi"] = $request["deskripsi_barang"];
         $input["satuan"] = $request["satuan_barang"];
         $input["stok"] = $request["stok"];
         $input["harga"] = $request["harga_jual"];
         $input["status"] = $request["status"];
-        $input['gambar_barang'] = Storage::putFileAs('barang', $request->file('gambar_barang'), $name);
+        $input['gambar'] = Storage::putFileAs('public/barang', $request->file('gambar_barang'), $name);
 
         try {
             Barang::create($input);
             return redirect('/dashboard/databarang/data')->with('status', 'Berhasil menambah data');
         } catch (\Throwable $th) {
+            Barang::create($input);
             return redirect('/dashboard/databarang/data/create')->with('status', 'Gagal menambah data');
         }
     }
@@ -92,7 +96,8 @@ class DataBarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $databarang = DB::table("barang")->where("id", $id)->first();
+        return view('dashboard.dataBarang.edit', compact("databarang"));
     }
 
     /**
