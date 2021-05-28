@@ -58,7 +58,8 @@ class DataBarangController extends Controller
 
         $fileType = $request->file('gambar_barang')->extension();
         $name = Str::random(8) . '.' . $fileType;
-//        $input['gambar'] = Storage::putFileAs('barang', $request->file('gambar_barang'), $name);
+        Storage::putFileAs('public/barang', $request->file('gambar_barang'), $name);
+
         $input["id_supplier"] = $supplier_id->id;
         $input["nama_barang"] = $request["nama_barang"];
         $input["deskripsi"] = $request["deskripsi_barang"];
@@ -66,7 +67,7 @@ class DataBarangController extends Controller
         $input["stok"] = $request["stok"];
         $input["harga"] = $request["harga_jual"];
         $input["status"] = $request["status"];
-        $input['gambar'] = Storage::putFileAs('public/barang', $request->file('gambar_barang'), $name);
+        $input['gambar'] = $name;
 
         try {
             Barang::create($input);
