@@ -28,8 +28,8 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        var_dump("datasupplier");
-//        return view('dashboard.supplier.edit', compact("datasupplier"));
+        // var_dump("datasupplier");
+       return view('dashboard.supplier.add', );
     }
 
     /**
