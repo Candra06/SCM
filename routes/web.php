@@ -16,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-
+Route::get('/', function ()
+{
+    return view('frontend.master');
+});
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/access/block', 'BlockController@index');
+Route::get('/daftar', 'HomeController@register');
+Route::post('/register', 'HomeController@store');
+
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/homes/index', 'Dashboard\HomeController@index');
