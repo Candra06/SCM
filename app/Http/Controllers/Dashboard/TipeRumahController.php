@@ -143,7 +143,7 @@ class TipeRumahController extends Controller
             Tipe::where('id', $id)->update($input);
             return redirect('/dashboard/tiperumah/data')->with('status', 'Berhasil mengubah data');
         } catch (\Throwable $th) {
-            return redirect('/dashboard/tiperumah/data/'.$id.'/edit')->with('status', 'Gagal mengubah data');
+            return redirect('/dashboard/tiperumah/data/' . $id . '/edit')->with('status', 'Gagal mengubah data');
         }
     }
 
@@ -160,6 +160,34 @@ class TipeRumahController extends Controller
             return redirect('/dashboard/tiperumah/data')->with('status', 'Berhasil mengahpus data');
         } catch (\Throwable $th) {
             return redirect('/dashboard/tiperumah/data')->with('status', 'Gagal mengahpus data');
+        }
+    }
+
+    public function listProperti()
+    {
+        try {
+            $data = Tipe::leftJoin('kavling', 'kavling.id', 'tipe_rumah.id_kavling')
+            ->where('tipe_rumah.status', 'Ready')
+            ->select('tipe_rumah.*', 'kavling.nama_kavling', 'kavling.no_kavling')
+                ->get();
+            // return $data;
+            return view('dashboard.tipeRumah.listProperti', compact('data'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    public function detailProperti($id)
+    {
+        try {
+            $data = Tipe::leftJoin('kavling', 'kavling.id', 'tipe_rumah.id_kavling')
+                ->where('tipe_rumah.id', $id)
+                ->select('tipe_rumah.*', 'kavling.nama_kavling', 'kavling.no_kavling')
+                ->first();
+            // return $data;
+            return view('dashboard.tipeRumah.detailProperti', compact('data'));
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 }

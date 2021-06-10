@@ -67,5 +67,14 @@ class Helper
     {
         return "Rp. " . number_format($price, 0, ',', '.');
     }
+
+    public static function formatTanggal($tgl)
+    {
+        $qq = '';
+        $k = explode("-", $tgl);
+        $bln = array('', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
+        $qq = $bln[(int)$k[1]];
+        return $k[2].' '.$qq. ' '.$k[0];
+    }
 }
 

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,7 @@ Route::post('/register', 'HomeController@store');
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/homes/index', 'Dashboard\HomeController@index');
+    Route::get('/homePelanggan/index', 'Dashboard\HomeController@dashboardPelanggan');
     Route::delete('/homes/index/{id}', 'Dashboard\HomeController@delete');
     Route::get('/settings/profile/', 'Dashboard\SettingController@profile');
     Route::put('/settings/profile/{id}', 'Dashboard\SettingController@updateprofile');
@@ -43,4 +45,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::resource('/tiperumah/data', 'Dashboard\TipeRumahController');
     Route::resource('/supplier/data', 'Dashboard\SupplierController');
     Route::resource('/databarang/data', 'Dashboard\DataBarangController');
+
+    //role pelanggan
+    Route::get('/properti/index/', 'Dashboard\TipeRumahController@listProperti');
+    Route::get('/properti/detail/{id}', 'Dashboard\TipeRumahController@detailProperti');
+    Route::post('/properti/pembelian', 'Dashboard\PembelianController@store');
+    Route::get('/pelanggan/editProfil', 'Dashboard\PelangganController@show');
+    Route::get('/pembelian/pelanggan', 'Dashboard\PembelianController@index');
+    Route::get('/pembelian/pelanggan/{id}', 'Dashboard\PembelianController@show');
 });
