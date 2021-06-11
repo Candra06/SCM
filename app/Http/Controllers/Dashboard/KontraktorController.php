@@ -21,6 +21,8 @@ class KontraktorController extends Controller
             ->leftJoin('roles', 'roles.id', 'users.role_id')
             ->select('kontraktor.*', 'users.email', 'roles.role')
             ->get();
+//        $data = [];
+
         return view('dashboard.kontraktor.index', compact('data'));
     }
 
