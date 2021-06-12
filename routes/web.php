@@ -48,7 +48,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::resource('/kontraktor/data', 'Dashboard\KontraktorController');
     Route::resource('/pemesanan/data', 'Dashboard\PemesananController');
     Route::resource('/proyek/data', 'Dashboard\ProyekController');
-    Route::resource('/kontraktor-alternatif/data', 'Dashboard\KontraktorController');
+    Route::resource('/progres-proyek/data', 'Dashboard\Progres_ProyekController');
 
     //role pelanggan
     Route::get('/properti/index/', 'Dashboard\TipeRumahController@listProperti');
