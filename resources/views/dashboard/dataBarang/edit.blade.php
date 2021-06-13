@@ -20,7 +20,7 @@
         </button>
     </div>
 @endif
-<form action="/dashboard/databarang/index/{{$databarang->id}}" enctype="multipart/form-data" method="POST">
+<form action="/dashboard/databarang/data/{{$databarang->id}}" enctype="multipart/form-data" method="POST">
     @method('put')
     @csrf
     <div class="row">
@@ -32,7 +32,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-4 mb-3">
-                            <input type="text" name="nama_barang" value="{{$databarang->nama_barang}}" class="form-control @error('nama_barang') is-invalid @enderror" placeholder="Nama Barang">
+                            <input type="text" name="editnama_barang" value="{{$databarang->nama_barang}}" class="form-control @error('nama_barang') is-invalid @enderror" placeholder="Nama Barang">
                             @error('nama_barang')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -40,7 +40,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="text" name="satuan_barang" value="{{$databarang->satuan}}" class="form-control @error('satuan_barang') is-invalid @enderror" placeholder="Satuan Barang">
+                            <input type="text" name="editsatuan_barang" value="{{$databarang->satuan}}" class="form-control @error('satuan_barang') is-invalid @enderror" placeholder="Satuan Barang">
                             @error('satuan_barang')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -48,7 +48,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="number" name="stok" value="{{$databarang->stok}}" class="form-control @error('stok') is-invalid @enderror" placeholder="Stock">
+                            <input type="number" name="editstok" value="{{$databarang->stok}}" class="form-control @error('stok') is-invalid @enderror" placeholder="Stock">
                             @error('stok')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -56,7 +56,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="number" name="harga_jual" value="{{$databarang->harga}}" class="form-control @error('harga_jual') is-invalid @enderror" placeholder="Harga Jual">
+                            <input type="number" name="editharga_jual" value="{{$databarang->harga}}" class="form-control @error('harga_jual') is-invalid @enderror" placeholder="Harga Jual">
                             @error('harga_jual')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <select class="form-control @error('status') is-invalid @enderror" name="status">
+                                <select class="form-control @error('status') is-invalid @enderror" name="editstatus">
                                     <option value="">Select Status</option>
                                     <option value="Ready" {{$databarang->status == 'Ready' ? 'selected' : ''}}>Ready</option>
                                     <option value="Sold Out" {{$databarang->status == 'Sold Out' ? 'selected' : ''}}>Sold Out</option>
@@ -80,7 +80,7 @@
                         <div class="col-lg-12 mb-3">
                             <div class="form-group">
                                 <label for="">Deskripsi Barang</label>
-                                <textarea type="text" name="deskripsi_barang" class="form-control @error('deskripsi_barang') is-invalid @enderror" placeholder="Deskripsi Barang">{{__($databarang->deskripsi)}}</textarea>
+                                <textarea type="text" name="editdeskripsi_barang" class="form-control @error('deskripsi_barang') is-invalid @enderror" placeholder="Deskripsi Barang">{{__($databarang->deskripsi)}}</textarea>
                                 @error('deskripsi_barang')
                                 <span class="text-danger mt-2">{{$message}}</span>
                                 @enderror
@@ -89,9 +89,9 @@
                         <div class="col-lg-12 mb-3">
                             <div class="form-group">
                                 <label for="">Gambar Barang</label>
-                                <input type="file" id="input-file-now" name="gambar_barang" data-default-file="{{asset($databarang->gambar)}}" class="dropify" />
-                                @error('gambar_barang')
-                                <span class="text-danger mt-2">{{$message}}</span>
+                                <input type="file" id="input-file-now" name="editgambar_barang" data-default-file="{{asset("storage/barang/$databarang->gambar")}}" class="dropify" value="{{$databarang->gambar}}" />
+                                @error('editgambar_barang')
+                                    <span class="text-danger mt-2">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>

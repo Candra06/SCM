@@ -73,7 +73,6 @@ class DataBarangController extends Controller
             Barang::create($input);
             return redirect('/dashboard/databarang/data')->with('status', 'Berhasil menambah data');
         } catch (\Throwable $th) {
-            Barang::create($input);
             return redirect('/dashboard/databarang/data/create')->with('status', 'Gagal menambah data');
         }
     }
@@ -110,7 +109,41 @@ class DataBarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "editnama_barang" => "required",
+            "editdeskripsi_barang" => "required",
+            "editsatuan_barang" => "required",
+            "editstok" => "required|numeric",
+            "editharga_jual" => "required|numeric",
+            "editstatus" => "required",
+            'editgambar_barang' => 'file|between:0,2048|mimes:png,jpg,jpeg',
+        ]);
+//        dd($request['editgambar_barang']);
+
+
+
+        if ($request['editgambar_barang'] != null){
+            $fileType = $request->file('editgambar_barang')->extension();
+            $name = Str::random(8) . '.' . $fileType;
+            Storage::putFileAs('public/barang', $request->file('gambar_barang'), $name);
+            $input['gambar'] = $name;
+        }
+
+        $input["nama_barang"] = $request["editnama_barang"];
+        $input["deskripsi"] = $request["editdeskripsi_barang"];
+        $input["satuan"] = $request["editsatuan_barang"];
+        $input["stok"] = $request["editstok"];
+        $input["harga"] = $request["editharga_jual"];
+        $input["status"] = $request["editstatus"];
+
+
+        try {
+//            dd($input);
+            Barang::where("id", $id)->update($input);
+            return redirect('/dashboard/databarang/data')->with('status', 'Berhasil Mengubah data');
+        }catch (\Throwable $th){
+            return redirect('/dashboard/databarang/data')->with('status', 'Gagal Mengubah data');
+        }
     }
 
     /**
@@ -121,6 +154,11 @@ class DataBarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Barang::where("id", $id)->delete();
+            return redirect('/dashboard/databarang/data')->with('status', 'Berhasil Menghapus data');
+        }catch (\Throwable $th){
+            return redirect('/dashboard/databarang/data')->with('status', 'Gagal Menghapus data');
+        }
     }
 }
