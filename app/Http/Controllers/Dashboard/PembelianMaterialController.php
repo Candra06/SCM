@@ -95,6 +95,14 @@ class PembelianMaterialController extends Controller
                 'jumlah' => $request->jumlah,
                 'sub_total' => $total,
             ]);
+
+            $dataBarang = Barang::where("id", $request->id_barang)->first();
+            $newstock = $dataBarang->stok - $request->jumlah;
+
+            Barang::where("id", $request->id_barang)->update([
+                "stok"=>$newstock
+            ]);
+
             ProgresPembelian::create([
                 'id_pembelian' => $beli->id,
                 'keterangan' => Auth::user()->name . ' menambahkan pembelian baru',
