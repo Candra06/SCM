@@ -7,12 +7,12 @@
         <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
             href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false"><img class="img-fluid"
-                src="{{asset(Auth::user()->avatar)}}" /></a>
+                src="{{asset("assets/img/user.png")}}" /></a>
         <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up"
             aria-labelledby="navbarDropdownUserImage">
             <h6 class="dropdown-header d-flex align-items-center">
                 <div class="image mr-2" style="width: 50px; height: 50px;">
-                    <img class="dropdown-user-img" src="{{asset(Auth::user()->avatar)}}" style="width: 100%; height: 100%; object-fit: cover;" />
+                    <img class="dropdown-user-img" src="{{asset("assets/img/user.png")}}" style="width: 100%; height: 100%; object-fit: cover;" />
                 </div>
                 <div class="dropdown-user-details">
                     <div class="dropdown-user-details-name">{{Auth::user()->name}}</div>

@@ -17,16 +17,15 @@ class HomeController extends Controller
         if (Auth::user()->role_id == 3) {
             $data = Pelanggan::where('id_akun', Auth::user()->id)->first();
             // return $data;
-            return view('dashboard.home.homePelanggan');
+            return view('dashboard.home.homePelanggan', compact("data"));
         } else {
-            return view('dashboard.home.index',);
+            return view('dashboard.home.index');
         }
     }
 
     public function dashboardPelanggan()
     {
         $data = Pelanggan::where('id_akun', Auth::user()->id)->first();
-        // return $data;
         return view('dashboard.home.homePelanggan', compact('data'));
     }
 }

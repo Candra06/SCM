@@ -88,7 +88,7 @@
                             <div class="card testimonial-item">
 
                                @foreach ($data as $item)
-                               <img class="card-img-top" src="{{ asset($item->desain_rumah) }}" alt="Card image cap">
+                               <img class="card-img-top" src="{{asset("storage/desain/".$item->desain_rumah)}}" alt="Card image cap">
                                <div class="card-body">
                                    <h5 class="card-title">{{ $item->nama_kavling . ' ' . $item->no_kavling }}</h5>
                                    <div style="float:right;">

@@ -56,7 +56,7 @@ class TipeRumahController extends Controller
 
         $fileType = $request->file('desain_rumah')->extension();
         $name = Str::random(8) . '.' . $fileType;
-        $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
+//        $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
         $input['id_kavling'] = $request['kavling'];
         $input['nama_tipe'] = $request['nama_tipe'];
         $input['panjang_bangunan'] = $request['panjang_bangunan'];
@@ -66,7 +66,7 @@ class TipeRumahController extends Controller
         $input['jumlah_lantai'] = $request['jumlah_lantai'];
         $input['harga_jual'] = $request['harga_jual'];
         $input['status'] = $request['status'];
-        $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
+        $input['desain_rumah'] = Storage::putFileAs('public/desain', $request->file('desain_rumah'), $name);
 
         try {
             Tipe::create($input);
@@ -125,8 +125,8 @@ class TipeRumahController extends Controller
         if ($request['desain_rumah']) {
             $fileType = $request->file('desain_rumah')->extension();
             $name = Str::random(8) . '.' . $fileType;
-            $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
-            $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
+//            $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
+            $input['desain_rumah'] = Storage::putFileAs('public/desain', $request->file('desain_rumah'), $name);
         }
 
         $input['id_kavling'] = $request['kavling'];

@@ -160,7 +160,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="">Tanggal Selesai</label>
-                                <p><b>{{ $detailProyek->target_selesai == null ? '-' : Hellper::formatTanggal($detailProyek->target_selesai) }}</b>
+                                <p><b>{{ $detailProyek->target_selesai == null ? '-' : Helper::formatTanggal($detailProyek->target_selesai) }}</b>
                                 </p>
                             </div>
                         @endif
