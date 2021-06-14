@@ -21,8 +21,7 @@
             </button>
         </div>
     @endif
-    <form action="/dashboard/pelanggan/update/" enctype="multipart/form-data" method="POST">
-        @method('put')
+    <form action="{{route("saveprofile", $user)}}" enctype="multipart/form-data" method="POST">
         @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -45,7 +44,7 @@
                             <div class="col-md-6 mb-6 form-group">
                                 <label for="">NIK</label>
                                 <input type="number" name="nik" value="{{ $data->nik }}"
-                                    class="form-control @error('nik') is-invalid @enderror" placeholder="Nomor Kavling">
+                                    class="form-control @error('nik') is-invalid @enderror" placeholder="NIK">
                                 @error('nik')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -56,7 +55,7 @@
                                 <label for="">Telepon</label>
                                 <input type="number" name="telepon" value="{{ $data->telepon }}"
                                     class="form-control @error('telepon') is-invalid @enderror"
-                                    placeholder="telepon Kavling">
+                                    placeholder="Nomer Telepon">
                                 @error('telepon')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -66,7 +65,7 @@
                             <div class="col-md-6 mb-6 form-group">
                                 <label for="">Profesi</label>
                                 <input type="text" name="profesi" value="{{ $data->profesi }}"
-                                    class="form-control @error('profesi') is-invalid @enderror" placeholder="Nomor Kavling">
+                                    class="form-control @error('profesi') is-invalid @enderror" placeholder="Profesi">
                                 @error('profesi')
                                     <div class="invalid-feedback">
                                         {{ $message }}

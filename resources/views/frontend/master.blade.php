@@ -43,18 +43,10 @@
                             <h3>Tentang De Prima Bondowoso</h3>
 
                             <p>
-                                Primaland merupakan perusahaan yang bergerak di bidang developer, konsultan, dan design.
-                                Perusahaan ini dirintis pada tahun 2008, berawal dari usaha mengelola dan memasarkan
-                                beberapa unit rumah dan ruko. Beberapa proyek yang dikerjakan oleh Primaland antara lain
-                                11 unit rumah kos dan 6 unit rumah di jalan sigura-gura Malang, perumahan di Mondoroko
-                                Indah Inside, Simpang Borobudur, dan lain-lain.
+                                De Prima Bondowoso merupakan cabang dari Primaland. Primaland merupakan perusahaan yang bergerak di bidang developer, konsultan, dan design. Perusahaan ini dirintis pada tahun 2008, berawal dari usaha mengelola dan memasarkan beberapa unit rumah dan ruko. Beberapa proyek yang dikerjakan oleh Primaland antara lain 11 unit rumah kos dan 6 unit rumah di jalan sigura-gura Malang, perumahan di Mondoroko Indah Inside, Simpang Borobudur, dan lain-lain. Selanjutanya Primaland mengembangkan bisnisnnya di area Bondowoso dengan nama De Prima Bondowoso.
                             </p>
                             <p>
-                                Primaland terus maju dan berkembang seiring dengan pesatnya pertumbuhan property,
-                                khususnya di kota Malang. Mulai tahun 2016, Primaland membangun de Prima Tunggul wulung
-                                yang merupakan Hunian Islami Pertama di Kota Malang. Primaland sebagai developer hunian
-                                Islami berkomitmen untuk mengembangkan hunian Islami yang berkualitas dengan lingkungan
-                                yang kondusif, dan cara pembayaran yang syar’i.
+                                De Prima Bondowoso yang berlokasi di Area Sawah/Kebun, Pejaten, Kec. Bondowoso, Kabupaten Bondowoso, Jawa Timur sebagai developer hunian Islami berkomitmen untuk mengembangkan hunian Islami yang berkualitas dengan lingkungan yang kondusif, dan cara pembayaran yang syar’i.
                             </p>
 
                         </div>

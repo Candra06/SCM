@@ -56,6 +56,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/properti/detail/{id}', 'Dashboard\TipeRumahController@detailProperti');
     Route::post('/properti/pembelian', 'Dashboard\PembelianController@store');
     Route::get('/pelanggan/editProfil', 'Dashboard\PelangganController@show');
+    Route::post('/pelanggan/editProfil/{id}', 'Dashboard\PelangganController@update')->name("saveprofile");
     Route::get('/pembelian/pelanggan', 'Dashboard\PembelianController@index');
     Route::get('/pembelian/pelanggan/{id}', 'Dashboard\PembelianController@show');
 });
