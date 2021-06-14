@@ -78,7 +78,6 @@
                                         <th>#</th>
                                         <th>Total Harga</th>
                                         <th>Keterangan</th>
-                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,17 +86,6 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ Helper::price($item->total) }}</td>
                                             <td>{{$item->keterangan}}</td>
-                                            <td>
-                                                @if($item->status == "Pending")
-                                                    <span class="badge badge-warning">Pending</span>
-                                                @elseif($item->status == "Diproses")
-                                                    <span class="badge badge-primary">Diproses</span>
-                                                @elseif($item->status == "Dikirim")
-                                                    <span class="badge badge-success">Diproses</span>
-                                                @else
-                                                    <span class="badge badge-danger">Batal</span>
-                                                @endif
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -143,14 +131,14 @@
                                 </div>
                                 @enderror
                             </div>
-                            <div class="col-lg-4 mb-3">
-                                <input type="date" name="date" value="{{old('date')}}" class="form-control @error('date') is-invalid @enderror">
-                                @error('date')
-                                <div class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                                @enderror
-                            </div>
+{{--                            <div class="col-lg-4 mb-3">--}}
+{{--                                <input type="date" name="date" value="{{old('date')}}" class="form-control @error('date') is-invalid @enderror">--}}
+{{--                                @error('date')--}}
+{{--                                <div class="invalid-feedback">--}}
+{{--                                    {{$message}}--}}
+{{--                                </div>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
                         </div>
                         <div>
                             <button class="btn btn-primary btn-block" type="submit">Simpan</button>

@@ -38,12 +38,14 @@
                                     <td>{{ $item->jumlah }}</td>
                                     <td>{{ $item->satuan}}</td>
                                     <td>
-                                        @if($item->status == "Pending")
+                                        @if($item->status == "Lunas")
+                                            <span class="badge badge-success">Lunas</span>
+                                        @elseif($item->status == "Pending")
                                             <span class="badge badge-warning">Pending</span>
                                         @elseif($item->status == "Diproses")
                                             <span class="badge badge-primary">Diproses</span>
                                         @elseif($item->status == "Dikirim")
-                                            <span class="badge badge-success">Diproses</span>
+                                            <span class="badge badge-info">Diproses</span>
                                         @else
                                             <span class="badge badge-danger">Batal</span>
                                         @endif

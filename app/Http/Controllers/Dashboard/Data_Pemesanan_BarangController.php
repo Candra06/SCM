@@ -103,7 +103,7 @@ class Data_Pemesanan_BarangController extends Controller
         $request->validate([
             'progres_pembelian_barang_id' => 'required',
             'status' => 'required',
-            'date' => 'required',
+//            'date' => 'required',
         ]);
         try {
             PembelianBarang::where("id", $id)->update([
@@ -112,7 +112,7 @@ class Data_Pemesanan_BarangController extends Controller
 
             DB::table("progres_pembelian")->insert([
                 "id_pembelian" => $id,
-                "keterangan" => "Diubah oleh Supplier dengan status :". $request->status,
+                "keterangan" => "Diubah oleh Supplier dengan status : ". $request->status,
                 "created_by" => $user
             ]);
             return redirect("/dashboard/data-pemesanan-barang/data")->with('status', 'Berhasil menambahkan proyek');
