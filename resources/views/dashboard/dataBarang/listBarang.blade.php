@@ -81,7 +81,7 @@
                                                 <input type="hidden" name="id_barang" value="{{$item->id}}" id="">
                                                 <input type="hidden" name="id_sup" value="{{$item->id_sup}}" id="">
                                                 <input type="hidden" name="harga" value="{{$item->harga}}" id="">
-                                                <input type="number" id="jumlah" required name="jumlah" class="form-control" placeholder="Jumlah Pembelian">
+                                                <input type="number" id="jumlah" required name="jumlah" class="form-control" placeholder="Jumlah Pembelian" min="1" max="{{__($item->stok)}}">
                                               </div>
                                               {{-- <script type="text/javascript">
                                                     function textLength(value){
