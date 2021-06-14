@@ -16,8 +16,18 @@ class Data_Pemesanan_BarangController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()-id;
-//        $data = DetailPembelianBarang::leftjoin("")
+        $user = Auth::user()->id;
+        $data = DetailPembelianBarang::leftjoin("pembelian_barang", "pembelian_barang.id", "detail_pembelian_barang.id_pembelian")
+            ->leftjoin("kontraktor", "kontraktor.id", "pembelian_barang.id_kontraktor")
+            ->leftjoin("supplier", "supplier.id", "pembelian_barang.id_supplier")
+            ->leftjoin("barang", "barang.id", "detail_pembelian_barang.id_pembelian")
+            ->where("supplier.id_akun", $user)
+            ->select("kontraktor.nama", "barang.nama_barang", "barang.satuan", "pembelian_barang.status", "detail_pembelian_barang.*")
+            ->get();
+
+//        dd($data);
+        return view('dashboard.data_pemesanan_barang.index', compact('data'));
+
 
     }
 
@@ -50,7 +60,7 @@ class Data_Pemesanan_BarangController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**

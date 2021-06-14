@@ -21,9 +21,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kavling</th>
-                                <th>Tipe</th>
-                                <th>Tanggal Selesai</th>
+                                <th>Nama Kontraktor</th>
+                                <th>Nama Barang</th>
+                                <th>Jumlah</th>
+                                <th>Satuan</th>
+                                <th>Status</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -31,9 +33,21 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->nama_kavling . ' No ' . $item->no_kavling }}</td>
-                                    <td>{{ $item->nama_tipe }}</td>
-                                    <td>{{ Helper::formatTanggal($item->target_selesai) }}</td>
+                                    <td>{{ $item->nama}}</td>
+                                    <td>{{ $item->nama_barang }}</td>
+                                    <td>{{ $item->jumlah }}</td>
+                                    <td>{{ $item->satuan}}</td>
+                                    <td>
+                                        @if($item->status == "Pending")
+                                            <span class="badge badge-warning">Pending</span>
+                                        @elseif($item->status == "Diproses")
+                                            <span class="badge badge-primary">Diproses</span>
+                                        @elseif($item->status == "Dikirim")
+                                            <span class="badge badge-success">Diproses</span>
+                                        @else
+                                            <span class="badge badge-danger">Batal</span>
+                                        @endif
+                                    </td>
                                     <td class="justify-content-center">
                                         @if (Helper::permission()->edit == 1)
                                             <a href="{{ Helper::permission()->url . '/' . $item->id . '/edit' }}"
@@ -41,7 +55,7 @@
                                                 <i data-feather="edit-2"></i>
                                             </a>
                                         @endif
-                                        <a href="{{ url('/dashboard/progres-proyek/data/'.$item->id) }}"
+                                        <a href="{{ url('/dashboard/data-pemesanan-barang/data/'.$item->id) }}"
                                             class="btn btn-sm btn-secondary btn-circle mr-2">
                                             <i data-feather="eye"></i>
                                         </a>
