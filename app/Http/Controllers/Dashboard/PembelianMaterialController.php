@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Kontraktor;
 use App\Pembelian;
 use App\PembelianBarang;
+use App\ProgresPembelian;
+use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,12 +22,37 @@ class PembelianMaterialController extends Controller
      */
     public function index()
     {
-        $data = Barang::leftJoin('supplier', 'supplier.id', 'barang.id_supplier')
-                ->select('barang.*', 'supplier.nama', 'supplier.id as id_sup')
-                ->where('barang.status', 'Ready')
+        // if (condition) {
+        //     # code...
+        // }
+
+        if (Auth::user()->role_id == '2') {
+            $data = DetailPembelianBarang::leftJoin('pembelian_barang', 'pembelian_barang.id', 'detail_pembelian_barang.id_pembelian')
+                ->leftJoin('barang', 'barang.id', 'detail_pembelian_barang.id_barang')
+                ->leftJoin('supplier', 'supplier.id', 'pembelian_barang.id_supplier')
+                ->select('barang.nama_barang', 'barang.harga', 'detail_pembelian_barang.*', 'supplier.nama', 'pembelian_barang.status')
                 ->get();
-                // return $data;
-        return view('dashboard.dataBarang.listBarang', compact('data'));
+            // return $data;
+            return view('dashboard.pembelian.listPembelianMaterial', compact('data'));
+        } else if (Auth::user()->role_id == '4') {
+            $id = Supplier::where('id_akun', Auth::user()->id)->first();
+            $data = DetailPembelianBarang::leftJoin('pembelian_barang', 'pembelian_barang.id', 'detail_pembelian_barang.id_pembelian')
+                ->leftJoin('barang', 'barang.id', 'detail_pembelian_barang.id_barang')
+                ->leftJoin('supplier', 'supplier.id', 'pembelian_barang.id_supplier')
+                ->select('barang.nama_barang', 'barang.harga', 'detail_pembelian_barang.*', 'supplier.nama', 'pembelian_barang.status')
+                ->where('pembelian_barang.id_supplier', $id->id)
+                ->get();
+        } else {
+            $id = Kontraktor::where('id_akun', Auth::user()->id)->first();
+            $data = DetailPembelianBarang::leftJoin('pembelian_barang', 'pembelian_barang.id', 'detail_pembelian_barang.id_pembelian')
+                ->leftJoin('barang', 'barang.id', 'detail_pembelian_barang.id_barang')
+                ->leftJoin('supplier', 'supplier.id', 'pembelian_barang.id_supplier')
+                ->select('barang.nama_barang', 'barang.harga', 'detail_pembelian_barang.*', 'supplier.nama', 'pembelian_barang.status')
+                ->where('pembelian_barang.id_kontraktor', $id->id)
+                ->get();
+            // return $data;
+            return view('dashboard.pembelian.listPembelianMaterial', compact('data'));
+        }
     }
 
     /**
@@ -35,7 +62,12 @@ class PembelianMaterialController extends Controller
      */
     public function create()
     {
-        //
+        $data = Barang::leftJoin('supplier', 'supplier.id', 'barang.id_supplier')
+            ->select('barang.*', 'supplier.nama', 'supplier.id as id_sup')
+            ->where('barang.status', 'Ready')
+            ->get();
+        // return $data;
+        return view('dashboard.dataBarang.listBarang', compact('data'));
     }
 
     /**
@@ -63,6 +95,11 @@ class PembelianMaterialController extends Controller
                 'jumlah' => $request->jumlah,
                 'sub_total' => $total,
             ]);
+            ProgresPembelian::create([
+                'id_pembelian' => $beli->id,
+                'keterangan' => Auth::user()->name . ' menambahkan pembelian baru',
+                'created_by' => Auth::user()->id,
+            ]);
             return redirect('/dashboard/material/data')->with('status', 'Berhasil melakukan pemesanan');
         } catch (\Throwable $th) {
             throw $th;
@@ -79,7 +116,15 @@ class PembelianMaterialController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = DetailPembelianBarang::leftJoin('pembelian_barang', 'pembelian_barang.id', 'detail_pembelian_barang.id_pembelian')
+            ->leftJoin('barang', 'barang.id', 'detail_pembelian_barang.id_barang')
+            ->leftJoin('supplier', 'supplier.id', 'pembelian_barang.id_supplier')
+            ->select('barang.nama_barang', 'barang.harga', 'barang.satuan', 'detail_pembelian_barang.*', 'supplier.nama', 'pembelian_barang.status', 'pembelian_barang.metode_bayar')
+            ->where('detail_pembelian_barang.id', $id)
+            ->first();
+        $progres = ProgresPembelian::where('id_pembelian', $data->id_pembelian)->orderBy('id', 'DESC')->get();
+        // return $data;
+        return view('dashboard.pembelian.detailPembMaterialKontraktor', compact('data', 'progres'));
     }
 
     /**
@@ -90,7 +135,6 @@ class PembelianMaterialController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -102,7 +146,20 @@ class PembelianMaterialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            PembelianBarang::where('id', $id)->update([
+                'status' => $request->status
+            ]);
+            ProgresPembelian::create([
+                'id_pembelian' => $id,
+                'keterangan' => Auth::user()->name . ' membatalkan pemesanan material.',
+                'created_by' => Auth::user()->id,
+            ]);
+            return redirect('/dashboard/material/data')->with('status', 'Berhasil membatalkan pemesanan');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        return $request;
     }
 
     /**
