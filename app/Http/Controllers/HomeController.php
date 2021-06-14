@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pelanggan;
+use App\Pembelian;
 use App\Tipe;
 use App\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = Tipe::leftJoin('kavling', 'kavling.id', 'tipe_rumah.id_kavling')
+            ->where('tipe_rumah.status', 'Ready')
+            ->select('tipe_rumah.*', 'kavling.nama_kavling', 'kavling.no_kavling')
+                ->get();
+        return view('frontend.master', compact('data'));
     }
 
     public function register()

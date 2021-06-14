@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,10 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-Route::get('/', function ()
-{
-    return view('frontend.master');
-});
+Route::get('/', 'HomeController@Index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/daftar', 'HomeController@register');
 Route::post('/register', 'HomeController@store');
@@ -49,6 +48,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::resource('/pemesanan/data', 'Dashboard\PemesananController');
     Route::resource('/proyek/data', 'Dashboard\ProyekController');
     Route::resource('/progres-proyek/data', 'Dashboard\Progres_ProyekController');
+    Route::resource('/material/data', 'Dashboard\PembelianMaterialController');
 
     //role pelanggan
     Route::get('/properti/index/', 'Dashboard\TipeRumahController@listProperti');

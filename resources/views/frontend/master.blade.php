@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                    <img src="{{ url('/') }}/assets/frontend/img/hero-img.png" class="img-fluid" alt="">
+                    <img src="{{ url('/') }}/assets/frontend/img/ilustrasi_dpb_2021.png" class="img-fluid" alt="">
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <img src="assets/img/about.jpg" class="img-fluid" alt="">
+                        <img src="{{url('/')}}/assets/frontend/img/logo2.png" class="img-fluid" alt="">
                     </div>
 
                 </div>
@@ -87,13 +87,28 @@
                         <div class="swiper-slide">
                             <div class="card testimonial-item">
 
-                                <img class="card-img-top" src="..." alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make
-                                        up the bulk of the card's content.</p>
-                                    <a href="{{url('/pemesanan/1')}}" class="btn btn-primary">Pesan Sekarang</a>
+                               @foreach ($data as $item)
+                               <img class="card-img-top" src="{{ asset($item->desain_rumah) }}" alt="Card image cap">
+                               <div class="card-body">
+                                   <h5 class="card-title">{{ $item->nama_kavling . ' ' . $item->no_kavling }}</h5>
+                                   <div style="float:right;">
+
+                                 </div>
+                                <div style="text-align:left;">
+                                   <label for=""> Tipe Rumah</label>
+                                    <p class="card-text"><b>{{ $item->nama_tipe }}</b></p>
                                 </div>
+                               <div style="text-align: left">
+                                    <label for="">Jumlah Lantai</label>
+                                    <p class="card-text"><b>{{ $item->jumlah_lantai }}</b></p>
+                                </div>
+                                <div style="text-align: left">
+                                    <label for="">Harga Jual</label>
+                                    <p class="card-text"><b>{{ Helper::price($item->harga_jual) }}</b></p>
+                                </div>
+                                   {{-- <a href="{{url('/pemesanan/1')}}" class="btn btn-primary">Pesan Sekarang</a> --}}
+                               </div>
+                               @endforeach
 
                             </div>
                         </div><!-- End testimonial item -->
