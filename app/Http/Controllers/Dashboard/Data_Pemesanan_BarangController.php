@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Barang;
 use App\DetailPembelianBarang;
 use App\Http\Controllers\Controller;
 use App\PembelianBarang;
+use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,11 +21,12 @@ class Data_Pemesanan_BarangController extends Controller
     public function index()
     {
         $user = Auth::user()->id;
+        $supplier = Supplier::where("id_akun", $user)->first();
         $data = DetailPembelianBarang::leftjoin("pembelian_barang", "pembelian_barang.id", "detail_pembelian_barang.id_pembelian")
             ->leftjoin("kontraktor", "kontraktor.id", "pembelian_barang.id_kontraktor")
             ->leftjoin("supplier", "supplier.id", "pembelian_barang.id_supplier")
-            ->leftjoin("barang", "barang.id", "detail_pembelian_barang.id_pembelian")
-            ->where("supplier.id_akun", $user)
+            ->leftjoin("barang", "barang.id", "detail_pembelian_barang.id_barang")
+            ->where("pembelian_barang.id_supplier", $supplier->id)
             ->select("kontraktor.nama", "barang.nama_barang", "barang.satuan", "pembelian_barang.status", "detail_pembelian_barang.*")
             ->get();
 

@@ -21,7 +21,8 @@
                         @foreach ($data as $item)
                             <div class="col-md-4">
                                 <div class="card">
-                                    <img class="card-img-top" src="{{ asset($item->gambar) }}" alt=""
+                                    <img class="card-img-top" src="{{asset("storage/barang/".$item->gambar)}}" alt=""
+
                                         style="width: 100%; height: 100%; object-fit: cover;">
 
                                     <div class="card-body">
