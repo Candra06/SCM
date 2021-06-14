@@ -36,23 +36,23 @@
                                 </p>
                             </div>
                             <div class="col-md-4">
-                                <label for="">Kavling</label>
-                                <p><b>{{  $data->nama_kavling.' Nomor '.$data->no_kavling }}</b>
+                                <label for="">Nama Barang</label>
+                                <p><b>{{  $data->nama_barang }}</b>
                                 </p>
                             </div>
                             <div class="col-md-4">
-                                <label for="">Tipe</label>
-                                <p><b>{{ $data->nama_tipe }}</b>
+                                <label for="">Jumlah</label>
+                                <p><b>{{ $data->jumlah." ".$data->satuan }}</b>
                                 </p>
                             </div>
                             <div class="col-md-4">
-                                <label for="">jumlah Lantai Bangunan</label>
-                                <p><b>{{ $data->jumlah_lantai." Lantai"}}</b>
+                                <label for="">Metode Pembayaran</label>
+                                <p><b>{{ $data->metode_bayar}}</b>
                                 </p>
                             </div>
                             <div class="col-md-4">
-                                <label for="">Tanggal Selesai</label>
-                                <p><b>{{  Helper::formatTanggal($data->target_selesai) }}</b>
+                                <label for="">Total Harga</label>
+                                <p><b>{{  Helper::price($data->sub_total) }}</b>
                                 </p>
                             </div>
                     </div>
@@ -76,30 +76,41 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Tanggal</th>
+                                        <th>Total Harga</th>
                                         <th>Keterangan</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($progres as $m)
+                                    @foreach ($progres as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ Helper::formatTanggal($m->tanggal) }}</td>
-                                            <td>{{$m->keterangan}}</td>
+                                            <td>{{ Helper::price($item->total) }}</td>
+                                            <td>{{$item->keterangan}}</td>
+                                            <td>
+                                                @if($item->status == "Pending")
+                                                    <span class="badge badge-warning">Pending</span>
+                                                @elseif($item->status == "Diproses")
+                                                    <span class="badge badge-primary">Diproses</span>
+                                                @elseif($item->status == "Dikirim")
+                                                    <span class="badge badge-success">Diproses</span>
+                                                @else
+                                                    <span class="badge badge-danger">Batal</span>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-
-
                 </div>
             </div>
         </div>
 
     </div>
 
-    <form action="/dashboard/progres-proyek/data" enctype="multipart/form-data" method="POST">
+    <form action="/dashboard/data-pemesanan-barang/data/{{$id}}" enctype="multipart/form-data" method="POST">
+        @method('put')
         @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -110,16 +121,23 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4 mb-3">
-                                <input type="text" name="proyek_id" value="{{($id)}}" class="form-control @error('proyek_id') is-invalid @enderror" readonly>
-                                @error('proyek_id')
+                                <input type="text" name="progres_pembelian_barang_id" value="{{($id)}}" class="form-control @error('progres_pembelian_barang_id') is-invalid @enderror" readonly>
+                                @error('progres_pembelian_barang_id')
                                 <div class="invalid-feedback">
                                     {{$message}}
                                 </div>
                                 @enderror
                             </div>
                             <div class="col-lg-4 mb-3">
-                                <input type="text" name="keterangan" value="{{old('keterangan')}}" class="form-control @error('keterangan') is-invalid @enderror" placeholder="Keterangan">
-                                @error('keterangan')
+                                <select class="form-control @error('status') is-invalid @enderror" name="status">
+                                    <option value="">Select Status</option>
+                                    <option value="Pending" {{old('status') == 'Pending' ? 'selected' : ''}}>Pending</option>
+                                    <option value="Batal" {{old('status') == 'Batal' ? 'selected' : ''}}>Batal</option>
+                                    <option value="Diproses" {{old('status') == 'Diproses' ? 'selected' : ''}}>Diproses</option>
+                                    <option value="Dikirim" {{old('status') == 'Dikirim' ? 'selected' : ''}}>Dikirim</option>
+                                    <option value="Lunas" {{old('status') == 'Lunas' ? 'selected' : ''}}>Lunas</option>
+                                </select>
+                                @error('url')
                                 <div class="invalid-feedback">
                                     {{$message}}
                                 </div>

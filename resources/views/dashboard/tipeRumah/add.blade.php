@@ -21,7 +21,7 @@
     </div>
 @endif
 <form action="/dashboard/tiperumah/data" enctype="multipart/form-data" method="POST">
-    
+
     @csrf
     <div class="row">
         <div class="col-lg-12">
@@ -36,7 +36,6 @@
                                 <select class="form-control @error('kavling') is-invalid @enderror" name="kavling">
                                     <option value="">Pilih Kavling</option>
                                     @foreach ($kavling as $item)
-
                                         <option value="{{$item->id}}" {{old('kavling') == $item->id ? 'selected' : ''}}>{{$item->nama_kavling}}</option>
                                     @endforeach
 
