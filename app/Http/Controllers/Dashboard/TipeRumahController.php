@@ -56,8 +56,8 @@ class TipeRumahController extends Controller
 
         $fileType = $request->file('desain_rumah')->extension();
         $name = Str::random(8) . '.' . $fileType;
-//        $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
-        Storage::putFileAs('public/desain', $request->file('desain_rumah'), $name);
+        $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
+        // Storage::putFileAs('public/desain', $request->file('desain_rumah'), $name);
         $input['id_kavling'] = $request['kavling'];
         $input['nama_tipe'] = $request['nama_tipe'];
         $input['panjang_bangunan'] = $request['panjang_bangunan'];
@@ -126,8 +126,8 @@ class TipeRumahController extends Controller
         if ($request['desain_rumah']) {
             $fileType = $request->file('desain_rumah')->extension();
             $name = Str::random(8) . '.' . $fileType;
-//            $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
-            Storage::putFileAs('public/desain', $request->file('desain_rumah'), $name);
+            $input['desain_rumah'] = Storage::putFileAs('desain', $request->file('desain_rumah'), $name);
+            // Storage::putFileAs('public/desain', $request->file('desain_rumah'), $name);
             $input['desain_rumah'] = $name;
         }
 
@@ -169,8 +169,8 @@ class TipeRumahController extends Controller
     {
         try {
             $data = Tipe::leftJoin('kavling', 'kavling.id', 'tipe_rumah.id_kavling')
-            ->where('tipe_rumah.status', 'Ready')
-            ->select('tipe_rumah.*', 'kavling.nama_kavling', 'kavling.no_kavling')
+                ->where('tipe_rumah.status', 'Ready')
+                ->select('tipe_rumah.*', 'kavling.nama_kavling', 'kavling.no_kavling')
                 ->get();
             // return $data;
             return view('dashboard.tipeRumah.listProperti', compact('data'));

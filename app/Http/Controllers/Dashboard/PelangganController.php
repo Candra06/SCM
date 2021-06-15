@@ -18,7 +18,9 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pelanggan::all();
+        // return $data;
+        return view('dashboard.pelanggan.index', compact('data'));
     }
 
     /**
@@ -48,17 +50,11 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $user = Auth::user()->id;
-        try {
-            $data = Pelanggan::leftJoin('users', 'users.id', 'pelanggan.id_akun')
-            ->where('pelanggan.id_akun', $user)->first();
-            // return $data;
-            return view('dashboard.pelanggan.editProfil', compact('data', "user"));
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+       $data = Pelanggan::where('id', $id)->first();
+    //    return $data;
+       return view('dashboard.pelanggan.detail', compact('data'));
     }
 
     /**

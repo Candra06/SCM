@@ -43,17 +43,26 @@
                             <h3>Tentang De Prima Bondowoso</h3>
 
                             <p>
-                                De Prima Bondowoso merupakan cabang dari Primaland. Primaland merupakan perusahaan yang bergerak di bidang developer, konsultan, dan design. Perusahaan ini dirintis pada tahun 2008, berawal dari usaha mengelola dan memasarkan beberapa unit rumah dan ruko. Beberapa proyek yang dikerjakan oleh Primaland antara lain 11 unit rumah kos dan 6 unit rumah di jalan sigura-gura Malang, perumahan di Mondoroko Indah Inside, Simpang Borobudur, dan lain-lain. Selanjutanya Primaland mengembangkan bisnisnnya di area Bondowoso dengan nama De Prima Bondowoso.
+                                De Prima Bondowoso merupakan cabang dari Primaland. Primaland merupakan perusahaan yang
+                                bergerak di bidang developer, konsultan, dan design. Perusahaan ini dirintis pada tahun
+                                2008, berawal dari usaha mengelola dan memasarkan beberapa unit rumah dan ruko. Beberapa
+                                proyek yang dikerjakan oleh Primaland antara lain 11 unit rumah kos dan 6 unit rumah di
+                                jalan sigura-gura Malang, perumahan di Mondoroko Indah Inside, Simpang Borobudur, dan
+                                lain-lain. Selanjutanya Primaland mengembangkan bisnisnnya di area Bondowoso dengan nama
+                                De Prima Bondowoso.
                             </p>
                             <p>
-                                De Prima Bondowoso yang berlokasi di Area Sawah/Kebun, Pejaten, Kec. Bondowoso, Kabupaten Bondowoso, Jawa Timur sebagai developer hunian Islami berkomitmen untuk mengembangkan hunian Islami yang berkualitas dengan lingkungan yang kondusif, dan cara pembayaran yang syar’i.
+                                De Prima Bondowoso yang berlokasi di Area Sawah/Kebun, Pejaten, Kec. Bondowoso,
+                                Kabupaten Bondowoso, Jawa Timur sebagai developer hunian Islami berkomitmen untuk
+                                mengembangkan hunian Islami yang berkualitas dengan lingkungan yang kondusif, dan cara
+                                pembayaran yang syar’i.
                             </p>
 
                         </div>
                     </div>
 
                     <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <img src="{{url('/')}}/assets/frontend/img/logo2.png" class="img-fluid" alt="">
+                        <img src="{{ url('/') }}/assets/frontend/img/logo2.png" class="img-fluid" alt="">
                     </div>
 
                 </div>
@@ -76,34 +85,36 @@
                 <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
                     <div class="swiper-wrapper">
 
-                        <div class="swiper-slide">
-                            <div class="card testimonial-item">
+                        @foreach ($data as $item)
+                            <div class="swiper-slide">
+                                <div class="card testimonial-item">
 
-                               @foreach ($data as $item)
-                               <img class="card-img-top" src="{{asset("storage/desain/".$item->desain_rumah)}}" alt="Card image cap">
-                               <div class="card-body">
-                                   <h5 class="card-title">{{ $item->nama_kavling . ' ' . $item->no_kavling }}</h5>
-                                   <div style="float:right;">
+                                    <img class="card-img-top" src="{{ url('/') . $item->desain_rumah }}"
+                                        alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $item->nama_kavling . ' ' . $item->no_kavling }}
+                                        </h5>
+                                        <div style="float:right;">
 
-                                 </div>
-                                <div style="text-align:left;">
-                                   <label for=""> Tipe Rumah</label>
-                                    <p class="card-text"><b>{{ $item->nama_tipe }}</b></p>
-                                </div>
-                               <div style="text-align: left">
-                                    <label for="">Jumlah Lantai</label>
-                                    <p class="card-text"><b>{{ $item->jumlah_lantai }}</b></p>
-                                </div>
-                                <div style="text-align: left">
-                                    <label for="">Harga Jual</label>
-                                    <p class="card-text"><b>{{ Helper::price($item->harga_jual) }}</b></p>
-                                </div>
-                                   {{-- <a href="{{url('/pemesanan/1')}}" class="btn btn-primary">Pesan Sekarang</a> --}}
-                               </div>
-                               @endforeach
+                                        </div>
+                                        <div style="text-align:left;">
+                                            <label for=""> Tipe Rumah</label>
+                                            <p class="card-text"><b>{{ $item->nama_tipe }}</b></p>
+                                        </div>
+                                        <div style="text-align: left">
+                                            <label for="">Jumlah Lantai</label>
+                                            <p class="card-text"><b>{{ $item->jumlah_lantai }}</b></p>
+                                        </div>
+                                        <div style="text-align: left">
+                                            <label for="">Harga Jual</label>
+                                            <p class="card-text"><b>{{ Helper::price($item->harga_jual) }}</b></p>
+                                        </div>
+                                        {{-- <a href="{{url('/pemesanan/1')}}" class="btn btn-primary">Pesan Sekarang</a> --}}
+                                    </div>
 
-                            </div>
-                        </div><!-- End testimonial item -->
+                                </div>
+                            </div><!-- End testimonial item -->
+                        @endforeach
 
 
 

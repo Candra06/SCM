@@ -46,6 +46,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::resource('/databarang/data', 'Dashboard\DataBarangController');
     Route::resource('/kontraktor/data', 'Dashboard\KontraktorController');
     Route::resource('/pemesanan/data', 'Dashboard\PemesananController');
+    Route::resource('/pelanggan/data', 'Dashboard\PelangganController');
     Route::resource('/proyek/data', 'Dashboard\ProyekController');
     Route::resource('/progres-proyek/data', 'Dashboard\Progres_ProyekController');
     Route::resource('/material/data', 'Dashboard\PembelianMaterialController');
