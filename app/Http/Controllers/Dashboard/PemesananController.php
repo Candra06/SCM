@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Angsurann;
 use App\Http\Controllers\Controller;
+use App\Kavling;
 use App\Pembelian;
+use App\Tipe;
 use Illuminate\Http\Request;
 
 class PemesananController extends Controller
@@ -65,10 +67,10 @@ class PemesananController extends Controller
     public function edit($id)
     {
         $data = Pembelian::leftJoin('tipe_rumah', 'tipe_rumah.id', 'pembelian.id_tipe')
-        ->leftJoin('kavling', 'kavling.id', 'tipe_rumah.id_kavling')
-        ->select('pembelian.*', 'tipe_rumah.nama_tipe', 'kavling.nama_kavling', 'kavling.no_kavling', 'tipe_rumah.harga_jual')
-        ->where('pembelian.id', $id)
-        ->first();
+            ->leftJoin('kavling', 'kavling.id', 'tipe_rumah.id_kavling')
+            ->select('pembelian.*', 'tipe_rumah.nama_tipe', 'kavling.nama_kavling', 'kavling.no_kavling', 'tipe_rumah.harga_jual')
+            ->where('pembelian.id', $id)
+            ->first();
         $angsuran = Angsurann::where('id_pembelian', $id)->orderBy('id', 'ASC')->get();
         return view('dashboard.pembelian.detailPenjualan', compact('data', 'angsuran'));
     }
@@ -85,6 +87,8 @@ class PemesananController extends Controller
         // return $request;
         $pb = Pembelian::where('id', $id)->first();
         $update = [];
+        $tipe = Tipe::where('id', $pb->id_tipe)->first();
+        $kavling = Kavling::where('id', $tipe->id_kavling)->first();
         if ($pb->status == 'Masuk') {
             $update['harga_fix'] = $request->harga_fix;
             $update['jumlah_itj'] = $request->jumlah_itj;
@@ -93,15 +97,19 @@ class PemesananController extends Controller
             $update['jumlah_angsuran'] = $request->jumlah_angsuran;
             $update['besar_angsuran'] = $request->besar_angsuran;
             $update['status'] = $request->status;
-        }else {
+        } else {
             $update['status'] = $request->status;
         }
 
         try {
             Pembelian::where('id', $id)->update($update);
+            $tipe = Tipe::where('id', $pb->id_tipe)->first();
+            $kavling = Kavling::where('id', $tipe->id_kavling)->first();
+            Kavling::where('id', $tipe->id_kavling)->update(['status' => 'Sold Out']);
+            Tipe::where('id',  $pb->id_tipe)->update(['status' => 'Sold Out']);
             return redirect('/dashboard/pemesanan/data')->with('status', 'Berhasil memverifikasi pembelian');
         } catch (\Throwable $th) {
-            return redirect('/dashboard/pemesanan/data/'.$id.'/edit')->with('status', 'Gagal memverifikasi pembelian');
+            return redirect('/dashboard/pemesanan/data/' . $id . '/edit')->with('status', 'Gagal memverifikasi pembelian');
         }
     }
 
