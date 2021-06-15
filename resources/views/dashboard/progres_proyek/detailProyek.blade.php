@@ -91,12 +91,9 @@
                                 </tbody>
                             </table>
                         </div>
-
-
                 </div>
             </div>
         </div>
-
     </div>
 
     <form action="/dashboard/progres-proyek/data" enctype="multipart/form-data" method="POST">
@@ -140,7 +137,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </form>
 

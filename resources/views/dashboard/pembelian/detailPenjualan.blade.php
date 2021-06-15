@@ -162,11 +162,11 @@
                                             <td>{{ Helper::formatTanggal($m->tanggal_bayar) }}</td>
 
                                             <td>
-                                                @if ($m->status == 'Pending')
+                                                @if ($m->status_angsuran == 'Pending')
                                                     <span class="badge badge-warning">Pending</span>
-                                                @elseif ($m->status == 'Confirm')
+                                                @elseif ($m->status_angsuran == 'Confirm')
                                                     <span class="badge badge-success">Confirm</span>
-                                                @elseif ($m->status == 'Ditolak')
+                                                @elseif ($m->status_angsuran == 'Ditolak')
                                                     <span class="badge badge-danger">Ditolak</span>
                                                 @endif
                                             </td>
@@ -185,6 +185,40 @@
 
     </div>
 
-
+    <form action="/dashboard/pemesanan/data" enctype="multipart/form-data" method="POST">
+        @csrf
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Form Angsuran Pembayaran</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <input type="text" name="angsuran_id" value="{{($id)}}" class="form-control @error('angsuran_id') is-invalid @enderror" readonly>
+                                @error('angsuran_id')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <input type="date" name="date" value="{{old('date')}}" class="form-control @error('date') is-invalid @enderror">
+                                @error('date')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-block" type="submit">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
 @endsection

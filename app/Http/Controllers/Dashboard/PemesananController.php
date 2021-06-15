@@ -44,7 +44,21 @@ class PemesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "angsuran_id" => 'required',
+            "date" => 'required',
+        ]);
+
+        try {
+            Angsurann::create([
+                "id_pembelian" => $request->angsuran_id,
+                "status_angsuran" => "Confirm",
+                "tanggal_bayar" => $request->date
+            ]);
+            return redirect("/dashboard/pemesanan/data")->with('status', 'Berhasil menambahkan Angsuran');
+        }catch (\Throwable $th){
+            return redirect("/dashboard/pemesanan/data")->with('status', 'Gagal menambahkan Angsuran');
+        }
     }
 
     /**
@@ -72,7 +86,7 @@ class PemesananController extends Controller
             ->where('pembelian.id', $id)
             ->first();
         $angsuran = Angsurann::where('id_pembelian', $id)->orderBy('id', 'ASC')->get();
-        return view('dashboard.pembelian.detailPenjualan', compact('data', 'angsuran'));
+        return view('dashboard.pembelian.detailPenjualan', compact('data', 'angsuran', "id"));
     }
 
     /**
