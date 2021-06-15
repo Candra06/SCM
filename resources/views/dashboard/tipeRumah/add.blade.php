@@ -56,7 +56,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="number" name="panjang_tanah" value="{{old('panjang_tanah')}}" class="form-control @error('panjang_tanah') is-invalid @enderror" placeholder="Panjang Tanah (meter)">
+                            <input type="number" min="1" name="panjang_tanah" value="{{old('panjang_tanah')}}" class="form-control @error('panjang_tanah') is-invalid @enderror" placeholder="Panjang Tanah (meter)">
                             @error('panjang_tanah')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -64,7 +64,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="number" name="lebar_tanah" value="{{old('lebar_tanah')}}" class="form-control @error('lebar_tanah') is-invalid @enderror" placeholder="Lebar Tanah (meter)">
+                            <input type="number" min="1" name="lebar_tanah" value="{{old('lebar_tanah')}}" class="form-control @error('lebar_tanah') is-invalid @enderror" placeholder="Lebar Tanah (meter)">
                             @error('lebar_tanah')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -72,7 +72,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="number" name="panjang_bangunan" value="{{old('panjang_bangunan')}}" class="form-control @error('panjang_bangunan') is-invalid @enderror" placeholder="Panjang Bangunan (meter)">
+                            <input type="number" min="1" name="panjang_bangunan" value="{{old('panjang_bangunan')}}" class="form-control @error('panjang_bangunan') is-invalid @enderror" placeholder="Panjang Bangunan (meter)">
                             @error('panjang_bangunan')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -80,14 +80,14 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="number" name="lebar_bangunan" value="{{old('lebar_bangunan')}}" class="form-control @error('lebar_bangunan') is-invalid @enderror" placeholder="Lebat Bangunan (meter)">
+                            <input type="number" min="1" name="lebar_bangunan" value="{{old('lebar_bangunan')}}" class="form-control @error('lebar_bangunan') is-invalid @enderror" placeholder="Lebat Bangunan (meter)">
                             @error('lebar_bangunan')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                             @enderror
                         </div> <div class="col-lg-4 mb-3">
-                            <input type="number" name="jumlah_lantai" value="{{old('jumlah_lantai')}}" class="form-control @error('jumlah_lantai') is-invalid @enderror" placeholder="Jumlah Lantai">
+                            <input type="number" min="1" name="jumlah_lantai" value="{{old('jumlah_lantai')}}" class="form-control @error('jumlah_lantai') is-invalid @enderror" placeholder="Jumlah Lantai">
                             @error('jumlah_lantai')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -95,7 +95,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <input type="number" name="harga_jual" value="{{old('harga_jual')}}" class="form-control @error('harga_jual') is-invalid @enderror" placeholder="Harga Jual">
+                            <input type="number" min="1" name="harga_jual" value="{{old('harga_jual')}}" class="form-control @error('harga_jual') is-invalid @enderror" placeholder="Harga Jual">
                             @error('harga_jual')
                             <div class="invalid-feedback">
                                 {{$message}}
