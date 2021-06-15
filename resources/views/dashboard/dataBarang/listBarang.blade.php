@@ -47,9 +47,11 @@
                                             </div>
 
                                         </div>
-
-                                        <button data-toggle="modal" data-target="#exampleModalLong" class="btn btn-block btn-primary mt-4">Order</button>
-
+                                        @if($item->stok == 0)
+                                            <button disabled class="btn btn-block btn-danger mt-4">Out Of Stock</button>
+                                        @else
+                                            <button data-toggle="modal" data-target="#exampleModalLong" class="btn btn-block btn-primary mt-4">Order</button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -83,17 +85,6 @@
                                                 <input type="hidden" name="harga" value="{{$item->harga}}" id="">
                                                 <input type="number" id="jumlah" required name="jumlah" class="form-control" placeholder="Jumlah Pembelian" min="1" max="{{__($item->stok)}}">
                                               </div>
-                                              {{-- <script type="text/javascript">
-                                                    function textLength(value){
-                                                        var maxLength = 144;
-                                                        if(value.length > maxLength) return false;
-                                                        return true;
-                                                    }
-
-                                                    document.getElementById('jumalh').onkeyup = function(){
-                                                        if(!textLength(this.value)) alert('text is too long!');
-                                                    }
-                                              </script> --}}
                                               <div class="col-md-12 mt-3">
                                                   <label for="">Total</label>
                                                   <h5>Total Pembelian</h5>
