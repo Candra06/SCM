@@ -154,10 +154,25 @@ class PembelianMaterialController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($id);
+        $data = PembelianBarang::leftjoin("detail_pembelian_barang", "detail_pembelian_barang.id_pembelian", "pembelian_barang.id")
+            ->leftjoin("barang", "barang.id", "detail_pembelian_barang.id_barang")
+            ->where("pembelian_barang.id", $id)
+            ->select("detail_pembelian_barang.jumlah", "detail_pembelian_barang.id_barang", "barang.stok")
+            ->first();
+
+        $newstock = $data->stok + $data->jumlah;
+
         try {
+
             PembelianBarang::where('id', $id)->update([
                 'status' => $request->status
             ]);
+
+            Barang::where("id", $data->id_barang)->update([
+               "stok" => $newstock
+            ]);
+
             ProgresPembelian::create([
                 'id_pembelian' => $id,
                 'keterangan' => Auth::user()->name . ' membatalkan pemesanan material.',
