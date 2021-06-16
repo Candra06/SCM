@@ -74,11 +74,10 @@ class Data_Pemesanan_BarangController extends Controller
             ->first();
 
         $progres = DB::table("progres_pembelian")
-            ->join("pembelian_barang", "pembelian_barang.id", "=", "progres_pembelian.id_pembelian")
             ->where("id_pembelian", $id)
-            ->select("pembelian_barang.status", "pembelian_barang.total", "progres_pembelian.*")
+            ->select("progres_pembelian.*")
             ->get();
-
+        // return $progres;
         return view('dashboard.data_pemesanan_barang.detailProyek', compact('data', 'progres', "id"));
     }
 

@@ -26,7 +26,7 @@
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Detail Proyek</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Detail Pembelian Material</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -55,6 +55,11 @@
                                 <p><b>{{  Helper::price($data->sub_total) }}</b>
                                 </p>
                             </div>
+                            <div class="col-md-4">
+                                <label for="">Status</label>
+                                <p><b>{{  $data->status }}</b>
+                                </p>
+                            </div>
                     </div>
 
                 </div>
@@ -67,7 +72,7 @@
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Progres Proyek</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Progres Pembelian Material</h6>
                 </div>
                 <div class="card-body">
 
@@ -76,7 +81,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Total Harga</th>
+                                        <th>Tanggal</th>
                                         <th>Keterangan</th>
                                     </tr>
                                 </thead>
@@ -84,7 +89,8 @@
                                     @foreach ($progres as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ Helper::price($item->total) }}</td>
+                                            <td>{{ $item->created_at}}</td>
+                                            {{-- <td>{{ Helper::formatTanggal(date('Y-m-d', $item->created_at)) }}</td> --}}
                                             <td>{{$item->keterangan}}</td>
                                         </tr>
                                     @endforeach
@@ -97,14 +103,14 @@
 
     </div>
 
-    <form action="/dashboard/data-pemesanan-barang/data/{{$id}}" enctype="multipart/form-data" method="POST">
+    {{-- <form action="/dashboard/data-pemesanan-barang/data/{{$id}}" enctype="multipart/form-data" method="POST">
         @method('put')
         @csrf
         <div class="row">
             <div class="col-lg-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Form Progres Proyek</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Form Progres Pembelian Material</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -139,7 +145,7 @@
 {{--                                </div>--}}
 {{--                                @enderror--}}
 {{--                            </div>--}}
-                        </div>
+                        {{-- </div>
                         <div>
                             <button class="btn btn-primary btn-block" type="submit">Simpan</button>
                         </div>
@@ -148,7 +154,7 @@
             </div>
 
         </div>
-    </form>
+    </form> --}}
 
 
 @endsection
