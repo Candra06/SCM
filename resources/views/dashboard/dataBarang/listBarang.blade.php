@@ -82,13 +82,39 @@
                                                 <label for="">Jumlah</label>
                                                 <input type="hidden" name="id_barang" value="{{$item->id}}" id="">
                                                 <input type="hidden" name="id_sup" value="{{$item->id_sup}}" id="">
-                                                <input type="hidden" name="harga" value="{{$item->harga}}" id="">
-                                                <input type="number" id="jumlah" required name="jumlah" class="form-control" placeholder="Jumlah Pembelian" min="1" max="{{__($item->stok)}}">
+                                                <input type="hidden" name="harga" id="harga" value="{{$item->harga}}" id="">
+                                                <input type="number" id="jumlah" required name="jumlah" class="form-control" id="jumlah" placeholder="Jumlah Pembelian" min="1" max="{{__($item->stok)}}">
                                               </div>
                                               <div class="col-md-12 mt-3">
                                                   <label for="">Total</label>
-                                                  <h5>Total Pembelian</h5>
+                                                  <h5 id="total">{{Helper::price(0)}}</h5>
                                               </div>
+                                              <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+                                              <script type="text/javascript">
+                                                  $("#jumlah").on('keyup', function() {
+                                                        var t = document.getElementById('jumlah').value;
+                                                        var c = document.getElementById('harga').value;
+                                                        var ttl = c *  t;
+                                                        var format = formatRupiah(ttl.value, 'Rp. ')
+                                                        $('#total:last').text( ttl);
+                                                    });
+                                                    /* Fungsi formatRupiah */
+                                                    function formatRupiah(angka, prefix){
+                                                        var	number_string = angka,
+                                                            sisa 	= number_string.length % 3,
+                                                            rupiah 	= number_string.substr(0, sisa),
+                                                            ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+
+                                                        if (ribuan) {
+                                                            separator = sisa ? '.' : '';
+                                                            rupiah += separator + ribuan.join('.');
+                                                        }
+
+                                                        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                                                        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+                                                    }
+                                              </script>
                                           </div>
 
                                     </div>

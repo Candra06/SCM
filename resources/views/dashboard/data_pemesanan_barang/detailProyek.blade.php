@@ -29,7 +29,10 @@
                     <h6 class="m-0 font-weight-bold text-primary">Detail Pembelian Material</h6>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <form action="/dashboard/data-pemesanan-barang/data/{{ $id }}" method="post">
+                        @method('put')
+                        @csrf
+                        <div class="row">
                             <div class="col-md-4">
                                 <label for="">Nama Kontraktor</label>
                                 <p><b>{{ $data->nama == null ? '-' : $data->nama }}</b>
@@ -37,30 +40,59 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="">Nama Barang</label>
-                                <p><b>{{  $data->nama_barang }}</b>
+                                <p><b>{{ $data->nama_barang }}</b>
                                 </p>
                             </div>
                             <div class="col-md-4">
                                 <label for="">Jumlah</label>
-                                <p><b>{{ $data->jumlah." ".$data->satuan }}</b>
+                                <p><b>{{ $data->jumlah . ' ' . $data->satuan }}</b>
                                 </p>
                             </div>
                             <div class="col-md-4">
                                 <label for="">Metode Pembayaran</label>
-                                <p><b>{{ $data->metode_bayar}}</b>
+                                <p><b>{{ $data->metode_bayar }}</b>
                                 </p>
                             </div>
                             <div class="col-md-4">
                                 <label for="">Total Harga</label>
-                                <p><b>{{  Helper::price($data->sub_total) }}</b>
+                                <p><b>{{ Helper::price($data->sub_total) }}</b>
                                 </p>
                             </div>
+
+                            <input type="hidden" name="progres_pembelian_barang_id" value="{{ $id }}"
+                                class="form-control @error('progres_pembelian_barang_id') is-invalid @enderror" readonly>
                             <div class="col-md-4">
                                 <label for="">Status</label>
-                                <p><b>{{  $data->status }}</b>
-                                </p>
+                                @if ($data->status == 'Batal')
+                                    <p><b>{{ $data->status }}</b></p>
+                                @else
+                                    <select class="form-control @error('status') is-invalid @enderror" name="status">
+                                        <option value="">Select Status</option>
+                                        <option value="Pending" {{ $data->status == 'Pending' ? 'selected' : '' }}>
+                                            Pending
+                                        </option>
+                                        <option value="Batal" {{ $data->status == 'Batal' ? 'selected' : '' }}>Batal
+                                        </option>
+                                        <option value="Diproses" {{ $data->status == 'Diproses' ? 'selected' : '' }}>
+                                            Diproses
+                                        </option>
+                                        <option value="Dikirim" {{ $data->status == 'Dikirim' ? 'selected' : '' }}>
+                                            Dikirim
+                                        </option>
+                                        <option value="Lunas" {{ $data->status == 'Lunas' ? 'selected' : '' }}>Lunas
+                                        </option>
+                                    </select>
+                                @endif
                             </div>
-                    </div>
+
+                            @if ($data->status != 'Batal')
+                                <div class="col-md-12 mt-3">
+                                    <button class="btn btn-primary btn-block" type="submit">Simpan</button>
+                                </div>
+                            @endif
+
+                        </div>
+                    </form>
 
                 </div>
             </div>
@@ -76,34 +108,34 @@
                 </div>
                 <div class="card-body">
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tanggal</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($progres as $item)
                                     <tr>
-                                        <th>#</th>
-                                        <th>Tanggal</th>
-                                        <th>Keterangan</th>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                        {{-- <td>{{ Helper::formatTanggal(date('Y-m-d', $item->created_at)) }}</td> --}}
+                                        <td>{{ $item->keterangan }}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($progres as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->created_at}}</td>
-                                            {{-- <td>{{ Helper::formatTanggal(date('Y-m-d', $item->created_at)) }}</td> --}}
-                                            <td>{{$item->keterangan}}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 
-    {{-- <form action="/dashboard/data-pemesanan-barang/data/{{$id}}" enctype="multipart/form-data" method="POST">
+    {{-- <form action="/dashboard/data-pemesanan-barang/data/{{ $id }}" enctype="multipart/form-data" method="POST">
         @method('put')
         @csrf
         <div class="row">
@@ -115,37 +147,42 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4 mb-3">
-                                <input type="text" name="progres_pembelian_barang_id" value="{{($id)}}" class="form-control @error('progres_pembelian_barang_id') is-invalid @enderror" readonly>
+                                <input type="text" name="progres_pembelian_barang_id" value="{{ $id }}"
+                                    class="form-control @error('progres_pembelian_barang_id') is-invalid @enderror"
+                                    readonly>
                                 @error('progres_pembelian_barang_id')
-                                <div class="invalid-feedback">
-                                    {{$message}}
-                                </div>
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <select class="form-control @error('status') is-invalid @enderror" name="status">
                                     <option value="">Select Status</option>
-                                    <option value="Pending" {{old('status') == 'Pending' ? 'selected' : ''}}>Pending</option>
-                                    <option value="Batal" {{old('status') == 'Batal' ? 'selected' : ''}}>Batal</option>
-                                    <option value="Diproses" {{old('status') == 'Diproses' ? 'selected' : ''}}>Diproses</option>
-                                    <option value="Dikirim" {{old('status') == 'Dikirim' ? 'selected' : ''}}>Dikirim</option>
-                                    <option value="Lunas" {{old('status') == 'Lunas' ? 'selected' : ''}}>Lunas</option>
+                                    <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending
+                                    </option>
+                                    <option value="Batal" {{ old('status') == 'Batal' ? 'selected' : '' }}>Batal</option>
+                                    <option value="Diproses" {{ old('status') == 'Diproses' ? 'selected' : '' }}>Diproses
+                                    </option>
+                                    <option value="Dikirim" {{ old('status') == 'Dikirim' ? 'selected' : '' }}>Dikirim
+                                    </option>
+                                    <option value="Lunas" {{ old('status') == 'Lunas' ? 'selected' : '' }}>Lunas</option>
                                 </select>
                                 @error('url')
-                                <div class="invalid-feedback">
-                                    {{$message}}
-                                </div>
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
-                            </div>
-{{--                            <div class="col-lg-4 mb-3">--}}
-{{--                                <input type="date" name="date" value="{{old('date')}}" class="form-control @error('date') is-invalid @enderror">--}}
-{{--                                @error('date')--}}
-{{--                                <div class="invalid-feedback">--}}
-{{--                                    {{$message}}--}}
-{{--                                </div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-                        {{-- </div>
+                            </div> --}}
+    {{-- <div class="col-lg-4 mb-3"> --}}
+    {{-- <input type="date" name="date" value="{{old('date')}}" class="form-control @error('date') is-invalid @enderror"> --}}
+    {{-- @error('date') --}}
+    {{-- <div class="invalid-feedback"> --}}
+    {{-- {{$message}} --}}
+    {{-- </div> --}}
+    {{-- @enderror --}}
+    {{-- </div> --}}
+    {{-- </div>
                         <div>
                             <button class="btn btn-primary btn-block" type="submit">Simpan</button>
                         </div>

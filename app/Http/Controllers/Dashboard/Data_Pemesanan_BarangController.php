@@ -30,10 +30,8 @@ class Data_Pemesanan_BarangController extends Controller
             ->select("kontraktor.nama", "barang.nama_barang", "barang.satuan", "pembelian_barang.status", "detail_pembelian_barang.*")
             ->get();
 
-//        dd($data);
+        //        dd($data);
         return view('dashboard.data_pemesanan_barang.index', compact('data'));
-
-
     }
 
     /**
@@ -68,7 +66,7 @@ class Data_Pemesanan_BarangController extends Controller
         $data = DetailPembelianBarang::leftjoin("pembelian_barang", "pembelian_barang.id", "detail_pembelian_barang.id_pembelian")
             ->leftjoin("kontraktor", "kontraktor.id", "pembelian_barang.id_kontraktor")
             ->leftjoin("supplier", "supplier.id", "pembelian_barang.id_supplier")
-            ->leftjoin("barang", "barang.id", "detail_pembelian_barang.id_pembelian")
+            ->leftjoin("barang", "barang.id", "detail_pembelian_barang.id_barang")
             ->where("detail_pembelian_barang.id", $id)
             ->select("kontraktor.nama", "barang.nama_barang", "barang.satuan", "pembelian_barang.status", "pembelian_barang.metode_bayar", "detail_pembelian_barang.*")
             ->first();
@@ -77,7 +75,7 @@ class Data_Pemesanan_BarangController extends Controller
             ->where("id_pembelian", $id)
             ->select("progres_pembelian.*")
             ->get();
-        // return $progres;
+        // return $data;
         return view('dashboard.data_pemesanan_barang.detailProyek', compact('data', 'progres', "id"));
     }
 
@@ -105,24 +103,36 @@ class Data_Pemesanan_BarangController extends Controller
         $request->validate([
             'progres_pembelian_barang_id' => 'required',
             'status' => 'required',
-//            'date' => 'required',
+            //            'date' => 'required',
         ]);
+        $data = PembelianBarang::leftjoin("detail_pembelian_barang", "detail_pembelian_barang.id_pembelian", "pembelian_barang.id")
+            ->leftjoin("barang", "barang.id", "detail_pembelian_barang.id_barang")
+            ->where("pembelian_barang.id", $id)
+            ->select("detail_pembelian_barang.jumlah", "detail_pembelian_barang.id_barang", "barang.stok")
+            ->first();
+
+        $newstock = $data->stok + $data->jumlah;
         try {
             PembelianBarang::where("id", $id)->update([
                 "status" => $request->status
             ]);
 
+            if ($request->status == 'Batal') {
+                Barang::where("id", $data->id_barang)->update([
+                    "stok" => $newstock
+                ]);
+            }
+
             DB::table("progres_pembelian")->insert([
                 "id_pembelian" => $id,
-                "keterangan" => "Diubah oleh Supplier dengan status : ". $request->status,
-                "created_by" => $user
+                "keterangan" => "Diubah oleh Supplier dengan status : " . $request->status,
+                "created_by" => $user,
+                "created_at" => date('y-m-d H:i:s'),
             ]);
             return redirect("/dashboard/data-pemesanan-barang/data")->with('status', 'Berhasil menambahkan proyek');
-        }catch (\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect("/dashboard/data-pemesanan-barang/data")->with('status', 'Gagal menambahkan proyek');
-
         }
-
     }
 
     /**
