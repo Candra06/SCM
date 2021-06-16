@@ -96,16 +96,15 @@
                                                         var t = document.getElementById('jumlah').value;
                                                         var c = document.getElementById('harga').value;
                                                         var ttl = c *  t;
-                                                        var format = formatRupiah(ttl.value, 'Rp. ')
-                                                        $('#total:last').text( ttl);
+                                                        var format = formatRupiah(ttl, 'Rp.')
+                                                        $('#total:last').text( format);
                                                     });
-                                                    /* Fungsi formatRupiah */
                                                     function formatRupiah(angka, prefix){
-                                                        var	number_string = angka,
+                                                        var	number_string = String(angka),
+                                                        split   		= number_string.split(','),
                                                             sisa 	= number_string.length % 3,
                                                             rupiah 	= number_string.substr(0, sisa),
                                                             ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
-
                                                         if (ribuan) {
                                                             separator = sisa ? '.' : '';
                                                             rupiah += separator + ribuan.join('.');
