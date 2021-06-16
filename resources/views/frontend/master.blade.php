@@ -89,7 +89,7 @@
                             <div class="swiper-slide">
                                 <div class="card testimonial-item">
 
-                                    <img class="card-img-top" src="{{ url('/') . $item->desain_rumah }}"
+                                    <img class="card-img-top" src="{{ url('/').'/'. $item->desain_rumah }}"
                                         alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $item->nama_kavling . ' ' . $item->no_kavling }}

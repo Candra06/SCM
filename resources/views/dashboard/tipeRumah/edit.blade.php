@@ -121,7 +121,7 @@
                         <div class="col-lg-12 mb-3">
                             <div class="form-group">
                                 <label for="">Desain Rumah</label>
-                                <input type="file" id="input-file-now" name="desain_rumah" data-default-file="{{url('/').$data->desain_rumah}}" class="dropify" />
+                                <input type="file" id="input-file-now" name="desain_rumah" data-default-file="{{url('/').'/'.$data->desain_rumah}}" class="dropify" />
                                 @error('desain_rumah')
                                     <span class="text-danger mt-2">{{$message}}</span>
                                 @enderror

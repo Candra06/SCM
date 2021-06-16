@@ -36,7 +36,7 @@
                             <td>{{$m->nama_tipe}}</td>
                             <td>
                                 <div class="image" style="width: 60px; height: 40px;">
-                                  <img src="{{url('/').$m->desain_rumah}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                  <img src="{{url('/').'/'.$m->desain_rumah}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                               </td>
                             <td>{{$m->kavling->nama_kavling}}</td>
