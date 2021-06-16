@@ -89,7 +89,7 @@
                         <div class="col-lg-12 mb-3">
                             <div class="form-group">
                                 <label for="">Gambar Barang</label>
-                                <input type="file" id="input-file-now" name="editgambar_barang" data-default-file="{{url('/').'/'.$databarang->gambar}}" class="dropify" value="{{$databarang->gambar}}" />
+                                <input type="file" id="input-file-now" name="editgambar_barang" data-default-file="{{url('/'.$databarang->gambar)}}" class="dropify" value="{{$databarang->gambar}}" />
                                 @error('editgambar_barang')
                                     <span class="text-danger mt-2">{{$message}}</span>
                                 @enderror
